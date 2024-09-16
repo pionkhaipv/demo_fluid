@@ -10,7 +10,6 @@ import android.widget.CheckBox;
 import android.widget.Toast;
 
 import com.demo.fluid.activity.home.HomeActivity;
-import com.demo.fluid.ads.MyApplication;
 import com.demo.fluid.R;
 
 
@@ -48,7 +47,7 @@ public class PrivacyTermsActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Check above options to continue", Toast.LENGTH_SHORT).show();
                     return;
                 } else {
-                    MyApplication.setuser_onetime(1);
+//                    MyApplication.setuser_onetime(1);
                     Intent i = new Intent(activity, HomeActivity.class);
                     startActivity(i);
                     finish();

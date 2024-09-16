@@ -45,7 +45,7 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
 
     <application
-        android:name="com.demo.fluid.ads.MyApplication"
+        android:name=".MyApplication"
         android:requestLegacyExternalStorage="true"
         android:hardwareAccelerated="true"
         android:usesCleartextTraffic="true"
@@ -66,15 +66,19 @@
         <meta-data
             android:name="applovin.sdk.key"
             android:value="@string/applovin_sdk_key" />
-
         <activity
             android:exported="true"
-            android:name="com.demo.fluid.splashAds.SplashActivity"
+            android:name=".framework.HomeScreenActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:exported="true"
+            android:name="com.demo.fluid.splashAds.SplashActivity"
+            android:screenOrientation="portrait">
         </activity>
 
         <activity
