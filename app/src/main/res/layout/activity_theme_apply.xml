@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:aapt="http://schemas.android.com/aapt"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorlight"
+        android:tag="layout/activity_theme_apply_0">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_above="@+id/btm1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="@dimen/_300sdp"
+                android:layout_height="wrap_content"
+                android:layoutDirection="ltr"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_content"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="56dp"
+                        android:layout_marginLeft="56dp"
+                        android:layout_marginRight="56dp"
+                        android:layout_marginBottom="8dp"
+                        android:fontFamily="@font/inter_bold"
+                        android:gravity="center"
+                        android:text="@string/yay"
+                        android:textColor="@color/white"
+                        android:textSize="25sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="56dp"
+                        android:layout_marginLeft="56dp"
+                        android:layout_marginRight="56dp"
+                        android:layout_marginBottom="20dp"
+                        android:fontFamily="@font/inter_bold"
+                        android:gravity="center"
+                        android:text="@string/you_ve_successfully_set_wallpaper"
+                        android:textColor="@color/white"
+                        android:textSize="18sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/btnFinish"
+                android:layout_width="wrap_content"
+                android:layout_height="52dp"
+                android:layout_marginBottom="24dp"
+                android:background="@drawable/btn_apply_language"
+                android:fontFamily="@font/inter_semibold"
+                android:gravity="center"
+                android:paddingHorizontal="75dp"
+                android:paddingLeft="75dp"
+                android:paddingRight="75dp"
+                android:text="Finish"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <RelativeLayout
+            android:id="@+id/btm1"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:gravity="center"
+            android:layout_alignParentBottom="true">
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</layout>

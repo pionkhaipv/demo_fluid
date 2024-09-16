@@ -1,0 +1,13 @@
+
+vec3 combineGlow(vec3 color, vec4 colorModeData, vec4 glowData, vec3 lightMul, vec3 diffuse, vec3 specular)
+{
+	// I don't know WTF is going on here. It looks like this glow comb method was tuned specifically to preserver how the Radioactive Rumble preset looks like, but other than that it seems stupid.
+	// And it doesn't take lightMul into account at all. Might want to change this at some point, altough it's not top priority, as it is only used by one color mode.
+	vec3 factor = lightMul * glowData.a;
+	vec3 background = colorModeData.rgb;
+	//return mix(background + glowData.rgb * factor, color + glowData.rgb * factor, colorModeData.a);
+	return mix(background + glowData.rgb, color * (vec3(glowData.a) + glowData.rgb) * diffuse + glowData.a * glowData.a * specular, colorModeData.a);
+	//return (color + background * 0.5) * factor + glowData.rgb;
+	// return (color + background * 0.5) * factor + (color + background) * glowData.rgb;
+	//return color * factor + (color + background) * glowData.rgb;
+}

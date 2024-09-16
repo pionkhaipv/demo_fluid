@@ -1,0 +1,35 @@
+
+uniform vec3 color0;
+uniform vec3 color1;
+uniform vec3 color2;
+uniform vec3 colorActiveMask;
+uniform vec3 backgrColor;
+
+vec3 applyColorMode(vec3 color, out vec4 colorModeData)
+{
+	vec3 intens = color;
+	intens = smoothstep(0.0, 1.0, intens);
+	color = vec3(0.0);
+	
+	float paintAmount = min(dot(intens, colorActiveMask), 1.0);
+	
+	colorModeData = vec4(backgrColor, paintAmount);
+	
+	paintAmount += 0.001;
+	
+	// I recall doing this "preddivision" here so that later, especially in the glow combine stage, multiplying by the paintAmount (that goes into colorModeData.a) gives the correct result.
+	// For the life of me, I cannot understand while I simply don't NOT multiply by colorModeData.a in comb_glow_(input)_mul.
+	// Yes, there is a mix() which requires it, but surely I could replace mix by (1-colorModeData.a)*background + paint? Should revise it, especially since this can lead to inaccuracies!
+	intens /= paintAmount;
+	
+	color += color0 * intens.r * colorActiveMask.r;
+	color += color1 * intens.g * colorActiveMask.g;
+	color += color2 * intens.b * colorActiveMask.b;
+	
+	
+	//color /= max(paintAmount, 1.0);
+	
+	
+	
+	return color;
+}
