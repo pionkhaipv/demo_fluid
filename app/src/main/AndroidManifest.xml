@@ -75,38 +75,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:exported="true"
-            android:name="com.demo.fluid.splashAds.SplashActivity"
-            android:screenOrientation="portrait">
 
-
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-        </activity>
-
-        <activity
-            android:name="com.demo.fluid.splashAds.PrivacyTermsActivity"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name="com.demo.fluid.activity.home.HomeActivity"
-            android:exported="false"
-            android:hardwareAccelerated="true"
-            android:screenOrientation="portrait" />
         <activity
             android:name="com.demo.fluid.activity.main.MainActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
-        <activity
-            android:name="com.demo.fluid.activity.AllWallpaperActivity"
-            android:exported="false" />
-
-        <activity
-            android:name="com.demo.fluid.activity.main.ThemeApplyActivity"
-            android:exported="false" />
 
         <service
             android:name="com.demo.fluid.service.NewWallpaperService"

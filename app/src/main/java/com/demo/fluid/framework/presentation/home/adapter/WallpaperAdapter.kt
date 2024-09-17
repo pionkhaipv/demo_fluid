@@ -6,8 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.demo.fluid.activity.home.HomeModel
 import com.demo.fluid.databinding.ItemHomeBinding
+import com.demo.fluid.framework.presentation.model.HomeModel
 import pion.tech.fluid_wallpaper.util.loadImage
 
 class WallpaperAdapter :

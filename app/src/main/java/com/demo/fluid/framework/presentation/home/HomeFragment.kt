@@ -6,7 +6,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.demo.fluid.R
-import com.demo.fluid.activity.home.HomeModel
 import com.demo.fluid.databinding.FragmentHomeBinding
 import com.demo.fluid.util.gl.SettingsStorage
 import com.demo.fluid.service.NewWallpaperService
@@ -16,6 +15,7 @@ import com.magicfluids.NativeInterface
 import dagger.hilt.android.AndroidEntryPoint
 import com.demo.fluid.framework.presentation.common.BaseFragment
 import com.demo.fluid.framework.presentation.home.adapter.WallpaperAdapter
+import com.demo.fluid.framework.presentation.model.HomeModel
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
