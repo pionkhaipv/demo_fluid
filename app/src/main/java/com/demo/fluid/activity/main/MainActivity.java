@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -22,7 +23,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 
 import com.demo.fluid.service.NewWallpaperService;
-import com.demo.fluid.utils.Common;
+import com.demo.fluid.util.Common;
 import com.demo.fluid.R;
 import com.demo.fluid.databinding.ActivityMainBinding;
 import com.jakewharton.rxbinding4.view.RxView;
@@ -34,9 +35,9 @@ import java.util.concurrent.TimeUnit;
 import io.reactivex.rxjava3.functions.Consumer;
 import kotlin.Unit;
 
-import com.demo.fluid.gl.GLES20Renderer;
-import com.demo.fluid.gl.OrientationSensor;
-import com.demo.fluid.gl.SettingsStorage;
+import com.demo.fluid.util.gl.GLES20Renderer;
+import com.demo.fluid.util.gl.OrientationSensor;
+import com.demo.fluid.util.gl.SettingsStorage;
 
 public final class MainActivity extends BaseActivity {
     private ActivityMainBinding binding;
@@ -94,31 +95,20 @@ public final class MainActivity extends BaseActivity {
     }
 
     private void clickListener() {
-        ActivityMainBinding activityMainBinding = this.binding;
-        ActivityMainBinding activityMainBinding2 = null;
-        if (activityMainBinding == null) {
-            activityMainBinding = null;
-        }
-
-        activityMainBinding.btnBack.setOnClickListener(new View.OnClickListener() {
+        binding.btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
 
-        ActivityMainBinding activityMainBinding3 = this.binding;
-        if (activityMainBinding3 == null) {
-        } else {
-            activityMainBinding2 = activityMainBinding3;
-        }
-        TextView textView = activityMainBinding2.btnApply;
+        TextView textView = binding.btnApply;
         RxView.clicks(textView).throttleFirst(1000, TimeUnit.MILLISECONDS).subscribe(new Consumer<Unit>() {
             @Override
             public void accept(Unit unit) throws Throwable {
                 try {
                     WallpaperManager.getInstance(MainActivity.this).clear();
-//                    applySettingsToLwp();
+                    applySettingsToLwp();
                     Common.INSTANCE.setNameWallpaper(nameWallpaper);
                     Common.INSTANCE.setNameWallpaper(MainActivity.this, nameWallpaper);
                     ComponentName componentName = new ComponentName(getPackageName(), NewWallpaperService.class.getName());
@@ -126,7 +116,7 @@ public final class MainActivity extends BaseActivity {
                     intent.putExtra("android.service.wallpaper.extra.LIVE_WALLPAPER_COMPONENT", componentName);
                     startForResult.launch(intent);
                 } catch (Exception unused) {
-//                    Toast.makeText(MainActivity.this, "This device not supported", 0).show();
+                    Toast.makeText(MainActivity.this, "This device not supported", 0).show();
                 }
             }
         });
@@ -135,12 +125,7 @@ public final class MainActivity extends BaseActivity {
     }
 
     private void initSettingController() {
-        ActivityMainBinding activityMainBinding = this.binding;
-        ActivityMainBinding activityMainBinding2 = null;
-        if (activityMainBinding == null) {
-            activityMainBinding = null;
-        }
-        activityMainBinding.surfaceView.setPreserveEGLContextOnPause(wantToPreserveEGLContext());
+        binding.surfaceView.setPreserveEGLContextOnPause(wantToPreserveEGLContext());
         NativeInterface nativeInterface2 = new NativeInterface();
         this.nativeInterface = nativeInterface2;
         nativeInterface2.setAssetManager(getAssets());
@@ -154,12 +139,7 @@ public final class MainActivity extends BaseActivity {
         NativeInterface nativeInterface3 = this.nativeInterface;
         OrientationSensor orientationSensor2 = this.orientationSensor;
         this.renderer = new GLES20Renderer(nativeInterface3, orientationSensor2);
-        ActivityMainBinding activityMainBinding4 = this.binding;
-        if (activityMainBinding4 == null) {
-        } else {
-            activityMainBinding2 = activityMainBinding4;
-        }
-        activityMainBinding2.surfaceView.setRenderer(this.renderer);
+        binding.surfaceView.setRenderer(this.renderer);
         GLES20Renderer gLES20Renderer = this.renderer;
         gLES20Renderer.setInitialScreenSize(300, 200);
         NativeInterface nativeInterface4 = this.nativeInterface;
@@ -187,11 +167,7 @@ public final class MainActivity extends BaseActivity {
     @Override
     public void onResume() {
         super.onResume();
-        ActivityMainBinding activityMainBinding = this.binding;
-        if (activityMainBinding == null) {
-            activityMainBinding = null;
-        }
-        activityMainBinding.surfaceView.onResume();
+        binding.surfaceView.onResume();
         NativeInterface nativeInterface2 = this.nativeInterface;
         if (nativeInterface2 != null) {
             nativeInterface2.onResume();

@@ -1,8 +1,7 @@
-package com.demo.fluid.utils;
+package com.demo.fluid.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import com.demo.fluid.R;
 
 public class Common {
     public static final Common INSTANCE = new Common();

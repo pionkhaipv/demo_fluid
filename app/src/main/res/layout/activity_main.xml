@@ -19,7 +19,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.demo.fluid.gl.MyGLSurfaceView
+        <com.demo.fluid.util.gl.MyGLSurfaceView
             android:id="@+id/surface_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"

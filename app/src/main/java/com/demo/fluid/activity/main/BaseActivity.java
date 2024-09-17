@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import androidx.appcompat.app.AppCompatActivity;
 import java.util.Locale;
-import com.demo.fluid.utils.Common;
+import com.demo.fluid.util.Common;
 
 public class BaseActivity extends AppCompatActivity {
 

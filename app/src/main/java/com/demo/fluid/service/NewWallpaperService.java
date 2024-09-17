@@ -10,11 +10,11 @@ import android.view.SurfaceHolder;
 import com.magicfluids.Config;
 import com.magicfluids.NativeInterface;
 import kotlin.jvm.internal.DefaultConstructorMarker;
-import com.demo.fluid.gl.GLES20RendererLWP;
-import com.demo.fluid.gl.InputBufferLWP;
-import com.demo.fluid.gl.OrientationSensor;
-import com.demo.fluid.gl.SettingsStorage;
-import com.demo.fluid.utils.Common;
+import com.demo.fluid.util.gl.GLES20RendererLWP;
+import com.demo.fluid.util.gl.InputBufferLWP;
+import com.demo.fluid.util.gl.OrientationSensor;
+import com.demo.fluid.util.gl.SettingsStorage;
+import com.demo.fluid.util.Common;
 
 public final class NewWallpaperService extends WallpaperService {
     public static final Companion Companion = new Companion((DefaultConstructorMarker) null);

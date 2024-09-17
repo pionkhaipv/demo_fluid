@@ -1,4 +1,4 @@
-package com.demo.fluid.utils;
+package com.demo.fluid.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;

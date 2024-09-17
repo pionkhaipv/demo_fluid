@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import com.demo.fluid.activity.home.HomeModel;
 import com.demo.fluid.activity.home.HomeViewModel;
 import com.demo.fluid.activity.main.MainActivity;
-import com.demo.fluid.utils.Common;
+import com.demo.fluid.util.Common;
 import com.demo.fluid.R;
 
 public class AllWallpaperActivity extends AppCompatActivity {

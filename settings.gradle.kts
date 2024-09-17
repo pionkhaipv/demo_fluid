@@ -22,5 +22,5 @@ dependencyResolutionManagement {
 }
 
 include(":app")
-rootProject.name = "DemoFluid"
+rootProject.name = "FluidPion"
 include(":commonRes")

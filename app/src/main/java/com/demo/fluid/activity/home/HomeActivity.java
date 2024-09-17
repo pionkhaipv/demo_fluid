@@ -21,8 +21,8 @@ import com.demo.fluid.activity.AllWallpaperActivity;
 import com.demo.fluid.adapter.AdapterHome;
 import com.demo.fluid.activity.main.BaseActivity;
 import com.demo.fluid.activity.main.MainActivity;
-import com.demo.fluid.utils.CenterZoomLinearLayoutManager;
-import com.demo.fluid.utils.Common;
+import com.demo.fluid.util.CenterZoomLinearLayoutManager;
+import com.demo.fluid.util.Common;
 import com.demo.fluid.R;
 import com.demo.fluid.databinding.ActivityHomeBinding;
 import com.magicfluids.NativeInterface;
@@ -45,22 +45,11 @@ public class HomeActivity extends BaseActivity {
         ActivityHomeBinding inflate = ActivityHomeBinding.inflate(getLayoutInflater());
         this.binding = inflate;
         setContentView(inflate.getRoot());
-        NativeInterface.init();
-        NativeInterface abc = new NativeInterface();
-        int hello = abc.getID();
-        Log.d("asgaggwaagwwag", "onCreate: "+hello);
-        abc.onCreate(300, 200, false);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(getResources().getColor(R.color.colorlight));
         }
-
-
-        //Reguler Banner Ads
-
-        //Small Native Ads
-
 
         this.layoutManager1 = new CenterZoomLinearLayoutManager(getApplicationContext(), 0, false);
         this.layoutManager2 = new CenterZoomLinearLayoutManager(getApplicationContext(), 0, false);
@@ -70,13 +59,9 @@ public class HomeActivity extends BaseActivity {
         this.adapterHome = new AdapterHome(this, new AdapterHome.OnClickListener() {
             @Override
             public void onClickListener(String str, String str2) {
-                Common common = Common.INSTANCE;
-                common.setCountSaveSuccess(common.getCountSaveSuccess() + 1);
-
                 Intent intent = new Intent(HomeActivity.this, MainActivity.class);
                 intent.putExtra("nameWallpaper", str);
                 startActivity(intent);
-//                AdsCommon.InterstitialAd(HomeActivity.this, intent);
             }
         });
         this.binding.rcvTheme.setLayoutManager(this.layoutManager1);

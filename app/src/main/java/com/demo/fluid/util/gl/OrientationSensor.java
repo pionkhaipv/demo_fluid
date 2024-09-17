@@ -1,4 +1,4 @@
-package com.demo.fluid.gl;
+package com.demo.fluid.util.gl;
 
 import android.app.Application;
 import android.content.Context;
