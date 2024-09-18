@@ -146,7 +146,9 @@ dependencies {
 
     // Timber
     implementation(libs.timber)
-
-    implementation ("com.jakewharton.rxbinding4:rxbinding:4.0.0")
+    implementation ("com.github.Dimezis:BlurView:version-2.0.3")
+    implementation("com.github.zladnrms:RoundableLayout:1.1.4")
+    implementation ("com.otaliastudios:cameraview:2.7.2")
+    implementation ("com.kyleduo.switchbutton:library:2.1.0")
 
 }

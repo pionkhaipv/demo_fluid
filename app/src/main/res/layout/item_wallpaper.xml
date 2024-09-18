@@ -5,14 +5,14 @@
     android:id="@+id/rlView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/_5sdp"
+    android:layout_margin="@dimen/_5dp"
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_240sdp"
-        app:cardCornerRadius="@dimen/_20sdp">
+        android:layout_height="@dimen/_240dp"
+        app:cardCornerRadius="@dimen/_20dp">
 
         <LinearLayout
             android:layout_width="match_parent"

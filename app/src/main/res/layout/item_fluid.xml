@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/iv_main"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:riv_corner_radius="@dimen/_5dp"
+        android:scaleType="centerCrop"
+        tools:background="#515151"
+        app:layout_constraintDimensionRatio="104:155"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/ll_loading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="@id/iv_main"
+        app:layout_constraintTop_toTopOf="@id/iv_main">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font_400"
+            android:text="@string/loading_content"
+            android:textColor="#9B9999"
+            android:layout_marginBottom="@dimen/_3dp"
+            android:textSize="@dimen/_12sp" />
+
+        <ImageView
+            android:layout_width="@dimen/_15dp"
+            android:layout_height="@dimen/_15dp"
+            android:src="@drawable/ic_loading" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

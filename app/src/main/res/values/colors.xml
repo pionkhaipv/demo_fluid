@@ -112,6 +112,7 @@
     <color name="tt_white">#ffffff</color>
     <color name="warning_stroke_color">#f8bb86</color>
 
+    <color name="bg_ads">#CFCFCF</color>
 
 
 </resources>

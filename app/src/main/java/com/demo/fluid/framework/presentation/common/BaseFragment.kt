@@ -17,7 +17,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
-import com.demo.fluid.framework.HomeScreenActivity
+import com.demo.fluid.framework.MainActivity
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -122,11 +122,11 @@ abstract class BaseFragment<Binding : ViewBinding, VM : ViewModel>(
     }
 
     fun showHideLoading(isShow: Boolean) {
-        if (activity != null && activity is HomeScreenActivity) {
+        if (activity != null && activity is MainActivity) {
             if (isShow) {
-                (activity as HomeScreenActivity).showLoading()
+                (activity as MainActivity).showLoading()
             } else {
-                (activity as HomeScreenActivity).hiddenLoading()
+                (activity as MainActivity).hiddenLoading()
             }
         }
     }

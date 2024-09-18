@@ -1,4 +1,4 @@
-package pion.tech.fluid_wallpaper.framework.presentation.common.lifecycleCallback
+package com.demo.fluid.framework.presentation.common.lifecycleCallback
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

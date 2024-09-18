@@ -1,4 +1,4 @@
-package pion.tech.fluid_wallpaper.framework.presentation.common
+package com.demo.fluid.framework.presentation.common
 
 import android.annotation.SuppressLint
 import android.content.Context

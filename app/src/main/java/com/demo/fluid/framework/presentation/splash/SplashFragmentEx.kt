@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.addCallback
 import com.demo.fluid.R
 import pion.tech.fluid_wallpaper.framework.database.entities.DummyEntity
-import pion.tech.fluid_wallpaper.util.BundleKey
+import com.demo.fluid.util.BundleKey
 
 fun SplashFragment.backEvent() {
     activity?.onBackPressedDispatcher?.addCallback(this, true) {

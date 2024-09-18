@@ -1,71 +1,41 @@
 package com.demo.fluid.framework.presentation.home
 
-import android.app.WallpaperManager
-import android.content.ComponentName
-import android.content.Intent
-import android.os.Bundle
 import android.view.View
 import com.demo.fluid.R
 import com.demo.fluid.databinding.FragmentHomeBinding
-import com.demo.fluid.util.gl.SettingsStorage
-import com.demo.fluid.service.NewWallpaperService
-import com.demo.fluid.util.Common
-import com.magicfluids.Config
-import com.magicfluids.NativeInterface
-import dagger.hilt.android.AndroidEntryPoint
 import com.demo.fluid.framework.presentation.common.BaseFragment
-import com.demo.fluid.framework.presentation.home.adapter.WallpaperAdapter
-import com.demo.fluid.framework.presentation.model.HomeModel
+import com.demo.fluid.framework.presentation.home.adapter.ModeWallpaperAdapter
+import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
     FragmentHomeBinding::inflate,
     HomeViewModel::class.java
-), WallpaperAdapter.Listener {
+), ModeWallpaperAdapter.Listener {
 
-    val adapter = WallpaperAdapter()
+    val adapter = ModeWallpaperAdapter()
+
     override fun init(view: View) {
-        initView()
-        viewModel.initData()
-        adapter.setListener(this)
-        adapter.submitList(viewModel.listWallpaper)
-        NativeInterface.init()
-        val abc = NativeInterface()
-//        val mid = abc.id
-//        Log.d("sagawgagwawgawg", "init: $mid")
-        abc.onCreate(300, 200, false)
+        setupViewPager()
+        onNextEvent()
+        onPreviousEvent()
+        onBackEvent()
 
     }
 
     override fun subscribeObserver(view: View) {
-    }
-
-    override fun onItemClick(item: HomeModel) {
-//        WallpaperManager.getInstance(requireContext()).clear()
-//        Common.INSTANCE.nameWallpaper = item.title
-//        val componentName: ComponentName = ComponentName(
-//            requireContext().packageName,
-//            NewWallpaperService::class.java.getName()
-//        )
-//        loadConfigPreset(item.title)
-//
-//        val intent = Intent("android.service.wallpaper.CHANGE_LIVE_WALLPAPER")
-//        intent.putExtra("android.service.wallpaper.extra.LIVE_WALLPAPER_COMPONENT", componentName)
-//        startActivity(intent)
-        val bundle = Bundle()
-        bundle.putString("KeyName",item.title)
-        safeNav(R.id.homeFragment,R.id.action_homeFragment_to_previewFluidFragment,bundle)
 
     }
 
-    private fun loadConfigPreset(nameWallpaper: String) {
-        val config2: Config = Config.Current
+    override fun onFluidWallpaperClick() {
+        safeNav(R.id.homeFragment, R.id.action_homeFragment_to_listFluidFragment)
+    }
 
-        SettingsStorage.loadConfigFromInternalPreset(
-            nameWallpaper,
-            requireActivity().assets,
-            config2
-        )
+    override fun onTransparentWallPaperClick() {
+        safeNav(R.id.homeFragment, R.id.action_homeFragment_to_transparentWallpaperFragment)
+    }
+
+    override fun onLiveWallPaperClick() {
     }
 
 }

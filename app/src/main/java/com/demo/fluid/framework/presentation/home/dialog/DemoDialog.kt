@@ -3,8 +3,8 @@ package com.demo.fluid.framework.presentation.home.dialog
 import android.os.Bundle
 import com.demo.fluid.R
 import com.demo.fluid.databinding.DialogDemoBinding
-import pion.tech.fluid_wallpaper.framework.presentation.common.BaseDialogFragment
-import pion.tech.fluid_wallpaper.util.BundleKey
+import com.demo.fluid.framework.presentation.common.BaseDialogFragment
+import com.demo.fluid.util.BundleKey
 
 class DemoDialog : BaseDialogFragment<DialogDemoBinding>(
     R.layout.dialog_demo

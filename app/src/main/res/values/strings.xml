@@ -7,7 +7,7 @@
     <string name="second_check">I confirm that Im 18 years old or above.</string>
     <string name="clickforprivacy">"By Clicking 'Get Started'. You are agree to above Terms of Use and Privacy Policy. "</string>
 
-
+    <string name="wallpaper_description">Image Wallpaper</string>
 
     <string name="LOADING">Loading...</string>
     <string name="_5">5</string>
@@ -203,6 +203,25 @@
     <string name="yay">Yay!!!</string>
     <string name="you_ve_successfully_set_wallpaper">You’ve successfully set wallpaper</string>
     <string name="app_desc">App turns a boring screen into a creative relax tool with colorful fluid animation! With a simple touch of the screen, you can watch the magical fluid flow and create mesmerizing movements with colors, lights, and motions.</string>
+    <string name="tap_to_open">tap to open</string>
+    <string name="loading_ads">Loading ads</string>
+    <string name="fluid_wallpaper">Fluid wallpaper</string>
+    <string name="transparent_wallpaper">Transparent wallpaper</string>
+    <string name="preview">Preview</string>
+    <string name="demo">Demo</string>
+    <string name="success">Success</string>
+    <string name="something_error">Something error</string>
+    <string name="loading_content">Loading content</string>
+    <string name="set_wallpaper">Set wallpaper</string>
+    <string name="onscreen">Onscreen</string>
+    <string name="add_text">Add text</string>
+    <string name="draw_on_screen_to_see_magic">Draw on screen to see magic</string>
+    <string name="edit_wallpaper">Edit wallpaper</string>
+    <string name="done">Done</string>
+    <string name="you_need_to_unlock_it_to_use_this_feature_only_in_this_session">You need to unlock it to use this feature (only in this session)</string>
+    <string name="watch_ad">Watch Ad</string>
+    <string name="or">Or</string>
+    <string name="buy_vip_version">Buy VIP version</string>
 
 
 </resources>

@@ -2,7 +2,8 @@ package com.demo.fluid
 
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
-import com.demo.fluid.framework.HomeScreenActivity
+import com.demo.fluid.framework.MainActivity
+import com.magicfluids.NativeInterface
 import com.zxy.recovery.core.Recovery
 import dagger.hilt.android.HiltAndroidApp
 import pion.tech.fluid_wallpaper.framework.presentation.common.lifecycleCallback.ActivityLifecycleCallbacksImpl
@@ -20,13 +21,13 @@ class MyApplication : Application() {
         super.onCreate()
         //TODO: enable/disable dark theme
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-
+        NativeInterface.init()
         if (BuildConfig.DEBUG) {
             Recovery.getInstance()
                 .debug(true)
                 .recoverInBackground(false)
                 .recoverStack(true)
-                .mainPage(HomeScreenActivity::class.java)
+                .mainPage(MainActivity::class.java)
                 .recoverEnabled(true)
                 .silent(false, Recovery.SilentMode.RECOVER_ACTIVITY_STACK)
                 .init(this)

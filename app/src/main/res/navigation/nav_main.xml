@@ -1,19 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_main.xml"
     app:startDestination="@id/splashFragment">
 
     <fragment
         android:id="@+id/homeFragment"
+        tools:layout="@layout/fragment_home"
         android:name="com.demo.fluid.framework.presentation.home.HomeFragment"
         android:label="HomeFragment" >
         <action
             android:id="@+id/action_homeFragment_to_previewFluidFragment"
             app:destination="@id/previewFluidFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_transparentWallpaperFragment"
+            app:destination="@id/transparentWallpaperFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_listFluidFragment"
+            app:destination="@id/listFluidFragment" />
     </fragment>
     <fragment
         android:id="@+id/splashFragment"
+        tools:layout="@layout/fragment_splash"
         android:name="com.demo.fluid.framework.presentation.splash.SplashFragment"
         android:label="SplashFragment" >
         <action
@@ -22,6 +31,51 @@
     </fragment>
     <fragment
         android:id="@+id/previewFluidFragment"
+        tools:layout="@layout/fragment_preview_fluid"
         android:name="com.demo.fluid.framework.presentation.preview_fluid.PreviewFluidFragment"
         android:label="PreviewFluidFragment" />
+    <fragment
+        android:id="@+id/transparentWallpaperFragment"
+        tools:layout="@layout/fragment_transparent_wallpaper"
+        android:name="com.demo.fluid.framework.presentation.transparentWallpaper.TransparentWallpaperFragment"
+        android:label="TransparentWallpaperFragment" />
+    <fragment
+        android:id="@+id/listFluidFragment"
+        tools:layout="@layout/fragment_list_fluid"
+        android:name="com.demo.fluid.framework.presentation.list_fluid.ListFluidFragment"
+        android:label="ListFluidFragment" >
+        <action
+            android:id="@+id/action_listFluidFragment_to_editFluidFragment"
+            app:destination="@id/editFluidFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editFluidFragment"
+        tools:layout="@layout/fragment_edit_fluid"
+        android:name="com.demo.fluid.framework.presentation.edit_fluid.EditFluidFragment"
+        android:label="EditFluidFragment" >
+        <action
+            android:id="@+id/action_editFluidFragment_to_onScreenFragment"
+            app:destination="@id/onScreenFragment" />
+        <action
+            android:id="@+id/action_editFluidFragment_to_addTextFluidFragment"
+            app:destination="@id/addTextFluidFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/onScreenFragment"
+        tools:layout="@layout/fragment_on_screen"
+        android:name="com.demo.fluid.framework.presentation.onScreenFluid.OnScreenFluidFragment"
+        android:label="OnScreenFragment" >
+        <action
+            android:id="@+id/action_onScreenFragment_to_editFluidFragment"
+            app:destination="@id/editFluidFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addTextFluidFragment"
+        tools:layout="@layout/fragment_add_text_fluid"
+        android:name="com.demo.fluid.framework.presentation.addTextFluid.AddTextFluidFragment"
+        android:label="AddTextFluidFragment" >
+        <action
+            android:id="@+id/action_addTextFluidFragment_to_editFluidFragment"
+            app:destination="@id/editFluidFragment" />
+    </fragment>
 </navigation>

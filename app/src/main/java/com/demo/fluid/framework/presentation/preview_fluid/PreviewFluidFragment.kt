@@ -4,13 +4,10 @@ import android.app.Application
 import android.app.WallpaperManager
 import android.content.ComponentName
 import android.content.Intent
-import android.os.Handler
-import android.os.Looper
 import android.view.View
-import android.widget.Toast
 import com.demo.fluid.databinding.FragmentPreviewFluidBinding
 import com.demo.fluid.framework.presentation.common.BaseFragment
-import com.demo.fluid.service.NewWallpaperService
+import com.demo.fluid.framework.presentation.wallpaper_service.NewWallpaperService
 import com.demo.fluid.util.Common
 import com.demo.fluid.util.gl.GLES20Renderer
 import com.demo.fluid.util.gl.OrientationSensor
@@ -18,8 +15,8 @@ import com.demo.fluid.util.gl.SettingsStorage
 import com.magicfluids.Config
 import com.magicfluids.NativeInterface
 import dagger.hilt.android.AndroidEntryPoint
-import pion.tech.fluid_wallpaper.util.displayToast
-import pion.tech.fluid_wallpaper.util.setPreventDoubleClickScaleView
+import com.demo.fluid.util.displayToast
+import com.demo.fluid.util.setPreventDoubleClickScaleView
 
 @AndroidEntryPoint
 class PreviewFluidFragment : BaseFragment<FragmentPreviewFluidBinding, PreviewFluidViewModel>(
@@ -28,12 +25,12 @@ class PreviewFluidFragment : BaseFragment<FragmentPreviewFluidBinding, PreviewFl
 ) {
 
     private var config: Config? = null
-    private val handler = Handler(Looper.getMainLooper())
 
     var nameWallpaper: String = "AbstractAdventure"
     private var nativeInterface: NativeInterface? = null
     private var orientationSensor: OrientationSensor? = null
     private var renderer: GLES20Renderer? = null
+
     override fun init(view: View) {
         nameWallpaper = arguments?.getString("KeyName") ?:"AbstractAdventure"
         config = Config.Current

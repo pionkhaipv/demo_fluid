@@ -1,8 +1,10 @@
-package pion.tech.fluid_wallpaper.util
+package com.demo.fluid.util
 
 import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.graphics.Rect
 import android.net.ConnectivityManager
 import android.net.Uri
@@ -21,6 +23,9 @@ import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
 
 fun View.setBackgroundTint(color: Int) {
     ViewCompat.setBackgroundTintList(this, ColorStateList.valueOf(color))
@@ -38,6 +43,34 @@ fun Context.getActionBarHeight(): Int {
     }
     return 0
 }
+
+fun View.getBitmapFromView(): Bitmap {
+    val bitmap = Bitmap.createBitmap(this.width, this.height, Bitmap.Config.ARGB_8888)
+    val canvas = Canvas(bitmap)
+    this.draw(canvas)
+    return bitmap
+}
+
+fun Context.saveBitmapToFile(bitmap: Bitmap): String? {
+    val fileDir = File(filesDir, "text_folder") // Tên thư mục bạn muốn lưu file
+    if (!fileDir.exists()) {
+        fileDir.mkdir() // Tạo thư mục nếu chưa có
+    }
+    val fileName = "myFile.png" // Tên file PNG
+    val file = File(fileDir, fileName)
+
+    try {
+        val outputStream = FileOutputStream(file)
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
+        outputStream.flush()
+        outputStream.close()
+        return file.absolutePath
+    } catch (e: IOException) {
+        e.printStackTrace()
+        return null
+    }
+}
+
 
 fun View.changeBackgroundColor(newColor: Int) {
     setBackgroundColor(

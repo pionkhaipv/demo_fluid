@@ -22,9 +22,9 @@ public final class GLES20RendererLWP implements GLSurfaceView.Renderer {
     private int screenHeight;
     private int screenWidth;
 
-    public GLES20RendererLWP(NativeInterface nativeInterface2, OrientationSensor orientationSensor2) {
-        this.nativeInterface = nativeInterface2;
-        this.orientationSensor = orientationSensor2;
+    public GLES20RendererLWP(NativeInterface nativeInterface, OrientationSensor orientationSensor) {
+        this.nativeInterface = nativeInterface;
+        this.orientationSensor = orientationSensor;
     }
 
     public NativeInterface getNativeInterface() {
