@@ -56,7 +56,7 @@ fun Context.saveBitmapToFile(bitmap: Bitmap): String? {
     if (!fileDir.exists()) {
         fileDir.mkdir() // Tạo thư mục nếu chưa có
     }
-    val fileName = "myFile.png" // Tên file PNG
+    val fileName = "my_file.png" // Tên file PNG
     val file = File(fileDir, fileName)
 
     try {

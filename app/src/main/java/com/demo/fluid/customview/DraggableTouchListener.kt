@@ -1,7 +1,6 @@
 package com.demo.fluid.customview
 
 import android.content.Context
-import android.graphics.Rect
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
@@ -11,7 +10,9 @@ class DraggableTouchListener(
     context: Context,
     private val removeArea: View,    // View mà khi kéo đến thì sẽ loại bỏ TextView
     private val container: FrameLayout, // View chứa TextView
-    private val onDoubleClick:()->Unit
+    private val onDoubleClick: () -> Unit,
+    private val onDragStart: () -> Unit,
+    private val onDragEnd: () -> Unit
 ) : View.OnTouchListener {
 
     private var dX = 0f
@@ -44,9 +45,10 @@ class DraggableTouchListener(
                     .setDuration(0)
                     .start()
                 isDragging = true // Đặt trạng thái kéo là true khi đang kéo
+                onDragStart.invoke()
             }
             MotionEvent.ACTION_UP -> {
-                // Lấy vị trí của view và removeArea (flAddText)
+                // Lấy vị trí của view và removeArea
                 val viewLocation = IntArray(2)
                 val removeAreaLocation = IntArray(2)
 
@@ -63,28 +65,30 @@ class DraggableTouchListener(
                 val removeRight = removeLeft + removeArea.width
                 val removeBottom = removeTop + removeArea.height
 
-                // Kiểm tra phần diện tích chạm của TextView với removeArea (ít nhất 50%)
+                // Tính toán diện tích giao nhau
                 val intersectionWidth = minOf(viewRight, removeRight) - maxOf(viewLeft, removeLeft)
                 val intersectionHeight = minOf(viewBottom, removeBottom) - maxOf(viewTop, removeTop)
 
                 val intersectionArea = maxOf(0, intersectionWidth) * maxOf(0, intersectionHeight)
                 val viewArea = view.width * view.height
 
-                // Kiểm tra xem diện tích giao nhau có đủ lớn không (ít nhất 50%)
-                val isLargeEnoughIntersection = intersectionArea >= 0.5 * viewArea
+                // Kiểm tra xem diện tích giao nhau có lớn hơn 5% diện tích view không
+                val isLargeEnoughIntersection = intersectionArea >= 0.1 * viewArea
 
+                // Xóa TextView nếu có phần diện tích giao nhau với removeArea lớn hơn 5%
                 if (isLargeEnoughIntersection) {
-                    // Xóa TextView nếu nó được kéo vào removeArea với diện tích đủ lớn
                     container.removeView(view)
                 } else if (!isDragging) {
                     // Nếu không phải kéo thì gọi onDoubleClick
                     // Double tap đã được xử lý trong GestureDetector
                 }
+                onDragEnd()
             }
+
         }
         return true
     }
-
 }
+
 
 

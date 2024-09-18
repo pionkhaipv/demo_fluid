@@ -2,12 +2,19 @@ package com.demo.fluid.framework.presentation.wallpaper_service;
 
 import android.app.Application;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Matrix;
+import android.graphics.Paint;
 import android.opengl.GLSurfaceView;
 import android.service.wallpaper.WallpaperService;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 
+import com.demo.fluid.R;
 import com.magicfluids.Config;
 import com.magicfluids.NativeInterface;
 
@@ -94,7 +101,9 @@ public final class NewWallpaperService extends WallpaperService {
             GLSurfaceView mGLSurfaceView = getMGLSurfaceView();
             mGLSurfaceView.setEGLContextClientVersion(2);
             OrientationSensor orientationSensor = getOrientationSensor();
-            newWallpaperService.setRenderer(new GLES20RendererLWP(nativeInterface, orientationSensor));
+            Bitmap imageBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.bg_fluid_home);
+
+            newWallpaperService.setRenderer(new GLES20RendererLWP(nativeInterface, orientationSensor,imageBitmap));
             mGLSurfaceView.setRenderer(getRenderer());
             if (getRenderer() != null) {
                 GLES20RendererLWP renderer = getRenderer();
@@ -114,6 +123,10 @@ public final class NewWallpaperService extends WallpaperService {
             super.onSurfaceCreated(surfaceHolder);
         }
 
+        @Override
+        public void onSurfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+            super.onSurfaceChanged(holder, format, width, height);
+        }
         @Override
         public void onVisibilityChanged(boolean z) {
             super.onVisibilityChanged(z);

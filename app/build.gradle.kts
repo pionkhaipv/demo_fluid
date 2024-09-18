@@ -150,5 +150,6 @@ dependencies {
     implementation("com.github.zladnrms:RoundableLayout:1.1.4")
     implementation ("com.otaliastudios:cameraview:2.7.2")
     implementation ("com.kyleduo.switchbutton:library:2.1.0")
+    implementation ("net.yslibrary.keyboardvisibilityevent:keyboardvisibilityevent:3.0.0-RC3")
 
 }

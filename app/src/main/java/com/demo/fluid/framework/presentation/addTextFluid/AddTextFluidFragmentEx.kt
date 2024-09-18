@@ -8,19 +8,25 @@ import android.widget.FrameLayout
 import android.widget.SeekBar
 import android.widget.TextView
 import androidx.activity.addCallback
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import com.demo.fluid.R
 import com.demo.fluid.customview.DraggableTouchListener
+import com.demo.fluid.framework.presentation.addTextFluid.adapter.ColorAdapter
+import com.demo.fluid.framework.presentation.addTextFluid.adapter.FontFamilyAdapter
 import com.demo.fluid.util.BundleKey
 import com.demo.fluid.util.getBitmapFromView
 import com.demo.fluid.util.gl.GLES20Renderer
 import com.demo.fluid.util.gl.OrientationSensor
 import com.demo.fluid.util.gl.SettingsStorage
 import com.demo.fluid.util.saveBitmapToFile
-import com.magicfluids.Config
 import com.demo.fluid.util.setPreventDoubleClickScaleView
+import com.magicfluids.Config
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent.setEventListener
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener
 import pion.tech.fluid_wallpaper.util.hideKeyboard
+
 
 fun AddTextFluidFragment.setUpCustomTextView() {
     binding.sbFontSize.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
@@ -96,7 +102,7 @@ fun AddTextFluidFragment.onApplyEvent() {
     }
 }
 
-fun AddTextFluidFragment.onDoneEvent(){
+fun AddTextFluidFragment.onDoneEvent() {
     binding.tvDone.setPreventDoubleClickScaleView {
         val bitmap = binding.flContainer.getBitmapFromView()
         val filePath = requireContext().saveBitmapToFile(bitmap)
@@ -129,9 +135,60 @@ fun AddTextFluidFragment.createNextTextView(): TextView {
                 binding.sbFontSize.progress = (currentEditTextView!!.textSize / 2).toInt()
 
                 binding.edtChangeText.setText(currentEditTextView!!.text)
-            }
-        )
+            },
+            onDragStart = {
+                binding.llDeleteText.isVisible = true
+                binding.llAddText.isVisible = false
+            },
+            onDragEnd = {
+                binding.llDeleteText.isVisible = false
+                binding.llAddText.isVisible = true
+            },
+
+            )
     )
 
     return newTextView
+}
+
+fun AddTextFluidFragment.setUpAdapter() {
+    val listColor = listOf(
+        "#DC3535",
+        "#D9DC35",
+        "#99DC35",
+        "#35DCC3",
+        "#3594DC",
+        "#8B35DC",
+        "#FFFFFF",
+        "#000000"
+    )
+    colorAdapter.submitList(listColor)
+    binding.rvColor.adapter = colorAdapter
+    colorAdapter.setListener(object : ColorAdapter.Listener {
+        override fun onItemClick(item: String) {
+            currentEditTextView?.setTextColor(Color.parseColor(item))
+        }
+    })
+
+    val listFontFamily = listOf(
+        R.font.font_digital_number, pion.tech.commonres.R.font.font_100,
+        pion.tech.commonres.R.font.font_200
+    )
+    fontFamilyAdapter.submitList(listFontFamily)
+    binding.rvFontFamily.adapter = fontFamilyAdapter
+    fontFamilyAdapter.setListener(object : FontFamilyAdapter.Listener {
+        override fun onItemClick(item: Int) {
+            val typeface = ResourcesCompat.getFont(binding.root.context, item)
+            currentEditTextView?.typeface = typeface
+        }
+    })
+}
+
+fun AddTextFluidFragment.initView() {
+    setEventListener(
+        requireActivity(),
+        viewLifecycleOwner,
+        KeyboardVisibilityEventListener { isShowKeyboard ->
+            binding.clInfoText.isVisible = !isShowKeyboard
+        })
 }

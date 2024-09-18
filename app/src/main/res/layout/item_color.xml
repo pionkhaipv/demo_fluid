@@ -7,6 +7,7 @@
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools">
 <ImageView
+    android:id="@+id/iv_main"
     android:layout_width="@dimen/_32dp"
     android:background="@drawable/bg_radius_300"
     android:backgroundTint="#123123"

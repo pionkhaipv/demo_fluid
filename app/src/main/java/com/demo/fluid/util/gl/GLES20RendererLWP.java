@@ -1,8 +1,14 @@
 package com.demo.fluid.util.gl;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
+import android.view.SurfaceHolder;
+
 import com.magicfluids.MotionEventWrapper;
 import com.magicfluids.NativeInterface;
 import javax.microedition.khronos.egl.EGLConfig;
@@ -22,9 +28,11 @@ public final class GLES20RendererLWP implements GLSurfaceView.Renderer {
     private int screenHeight;
     private int screenWidth;
 
-    public GLES20RendererLWP(NativeInterface nativeInterface, OrientationSensor orientationSensor) {
+    private Bitmap imageBitmap;
+    public GLES20RendererLWP(NativeInterface nativeInterface, OrientationSensor orientationSensor,Bitmap bitmap) {
         this.nativeInterface = nativeInterface;
         this.orientationSensor = orientationSensor;
+        this.imageBitmap = bitmap;
     }
 
     public NativeInterface getNativeInterface() {

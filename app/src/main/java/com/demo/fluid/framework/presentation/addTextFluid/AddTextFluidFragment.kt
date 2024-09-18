@@ -4,6 +4,8 @@ import android.view.View
 import android.widget.TextView
 import com.demo.fluid.databinding.FragmentAddTextFluidBinding
 import com.demo.fluid.databinding.FragmentSplashBinding
+import com.demo.fluid.framework.presentation.addTextFluid.adapter.ColorAdapter
+import com.demo.fluid.framework.presentation.addTextFluid.adapter.FontFamilyAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import com.demo.fluid.framework.presentation.common.BaseFragment
 import com.demo.fluid.util.BundleKey
@@ -22,15 +24,20 @@ class AddTextFluidFragment : BaseFragment<FragmentAddTextFluidBinding, AddTextFl
 
 
     var currentEditTextView:TextView? = null
+
+    val colorAdapter = ColorAdapter()
+    val fontFamilyAdapter = FontFamilyAdapter()
     override fun init(view: View) {
         nameWallpaper =
             arguments?.getString(BundleKey.KEY_FLUID_NAME_ADD_TEXT) ?: "AbstractAdventure"
+        initView()
         setUpSurfaceView()
         onBackEvent()
         addTextEvent()
         setUpCustomTextView()
         onApplyEvent()
         onDoneEvent()
+        setUpAdapter()
     }
 
     override fun subscribeObserver(view: View) {

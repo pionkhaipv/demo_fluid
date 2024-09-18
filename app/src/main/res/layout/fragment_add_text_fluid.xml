@@ -174,20 +174,48 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:visibility="visible"
             android:gravity="center">
 
             <ImageView
+                android:id="@+id/iv_add_text"
                 android:layout_width="@dimen/_32dp"
                 android:layout_height="@dimen/_32dp"
                 android:src="@drawable/ic_add_text_edit" />
 
             <TextView
+                android:id="@+id/tv_add_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_7dp"
                 android:fontFamily="@font/font_400"
                 android:text="@string/add_text"
                 android:textAllCaps="true"
+                android:textColor="#FFA81E"
+                android:textSize="@dimen/_18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/ll_delete_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/iv_delete_text"
+                android:layout_width="@dimen/_24dp"
+                android:layout_height="@dimen/_24dp"
+                android:src="@drawable/ic_delete_text_edit" />
+
+            <TextView
+                android:id="@+id/tv_delete_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_7dp"
+                android:fontFamily="@font/font_400"
+                android:text="@string/delete"
                 android:textColor="#FFA81E"
                 android:textSize="@dimen/_18sp" />
         </LinearLayout>
@@ -245,6 +273,7 @@
                 tools:listitem="@layout/item_color" />
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_font_family"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_12dp"
