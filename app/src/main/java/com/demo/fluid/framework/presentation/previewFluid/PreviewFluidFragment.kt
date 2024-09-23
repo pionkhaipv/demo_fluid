@@ -1,4 +1,4 @@
-package com.demo.fluid.framework.presentation.preview_fluid
+package com.demo.fluid.framework.presentation.previewFluid
 
 import android.app.Application
 import android.app.WallpaperManager

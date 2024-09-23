@@ -29,4 +29,5 @@ class MainActivity : AppCompatActivity() {
     fun hiddenLoading() {
         LoadingDialog.getInstance(this)?.hidden()
     }
+
 }

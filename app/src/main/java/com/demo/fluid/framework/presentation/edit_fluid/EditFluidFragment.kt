@@ -18,10 +18,9 @@ class EditFluidFragment : BaseFragment<FragmentEditFluidBinding, EditFluidViewMo
     var nameWallpaper: String = "AbstractAdventure"
     var nativeInterface = NativeInterface()
 
-    var isShowedTutorial = false
-
     override fun init(view: View) {
         nameWallpaper = arguments?.getString(BundleKey.KEY_FLUID_NAME_EDIT) ?: "AbstractAdventure"
+        initView()
         setUpSurfaceView()
         startHandAnim()
         onBackEvent()

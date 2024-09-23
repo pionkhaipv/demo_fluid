@@ -2,22 +2,17 @@ package com.demo.fluid.framework.presentation.addTextFluid
 
 import android.annotation.SuppressLint
 import android.graphics.Color
-import android.os.Bundle
 import android.util.Log
 import android.widget.FrameLayout
 import android.widget.SeekBar
 import android.widget.TextView
-import androidx.activity.addCallback
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
-import androidx.navigation.fragment.findNavController
 import com.demo.fluid.R
 import com.demo.fluid.customview.DraggableTouchListener
 import com.demo.fluid.framework.presentation.addTextFluid.adapter.ColorAdapter
 import com.demo.fluid.framework.presentation.addTextFluid.adapter.FontFamilyAdapter
-import com.demo.fluid.util.BundleKey
 import com.demo.fluid.util.getBitmapFromView
 import com.demo.fluid.util.gl.GLES20Renderer
 import com.demo.fluid.util.gl.OrientationSensor
@@ -30,7 +25,7 @@ import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventList
 import pion.tech.fluid_wallpaper.util.hideKeyboard
 
 
-fun AddTextFluidFragment.setUpCustomTextView() {
+fun AddTextFluidActivity.setUpCustomTextView() {
     binding.sbFontSize.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
         override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
             currentEditTextView?.textSize = progress.toFloat()
@@ -50,17 +45,17 @@ fun AddTextFluidFragment.setUpCustomTextView() {
     }
 }
 
-fun AddTextFluidFragment.setUpSurfaceView() {
+fun AddTextFluidActivity.setUpSurfaceView() {
     config = Config.Current
     SettingsStorage.loadConfigFromInternalPreset(
         nameWallpaper,
-        requireContext().assets,
+        assets,
         config
     )
 
     binding.surfaceView.preserveEGLContextOnPause = true
-    nativeInterface.setAssetManager(requireContext().assets)
-    val orientationSensor = OrientationSensor(requireContext(), requireActivity().application)
+    nativeInterface.setAssetManager(assets)
+    val orientationSensor = OrientationSensor(this, this.application)
     binding.surfaceView.setEGLContextClientVersion(2)
     val renderer = GLES20Renderer(nativeInterface, orientationSensor)
     binding.surfaceView.setRenderer(renderer)
@@ -69,33 +64,24 @@ fun AddTextFluidFragment.setUpSurfaceView() {
     nativeInterface.updateConfig(config)
 }
 
-fun AddTextFluidFragment.onBackEvent() {
+fun AddTextFluidActivity.onBackEvent() {
     binding.ivBack.setPreventDoubleClickScaleView {
         backEvent()
     }
-    activity?.onBackPressedDispatcher?.addCallback(this, true) {
-        backEvent()
-    }
 }
 
-fun AddTextFluidFragment.backEvent() {
-    val bundle = Bundle()
-    bundle.putString(BundleKey.KEY_FLUID_NAME_EDIT, nameWallpaper)
-    safeNav(
-        R.id.addTextFluidFragment,
-        R.id.action_addTextFluidFragment_to_editFluidFragment,
-        bundle
-    )
+fun AddTextFluidActivity.backEvent() {
+    finish()
 }
 
-fun AddTextFluidFragment.addTextEvent() {
+fun AddTextFluidActivity.addTextEvent() {
     binding.llAddText.setPreventDoubleClickScaleView {
         val newTextView = createNextTextView()
         binding.flContainer.addView(newTextView)
     }
 }
 
-fun AddTextFluidFragment.onApplyEvent() {
+fun AddTextFluidActivity.onApplyEvent() {
     binding.tvApply.setPreventDoubleClickScaleView {
         binding.clEditText.isVisible = false
         binding.tvApply.isVisible = false
@@ -104,20 +90,20 @@ fun AddTextFluidFragment.onApplyEvent() {
     }
 }
 
-fun AddTextFluidFragment.onDoneEvent() {
+fun AddTextFluidActivity.onDoneEvent() {
     binding.tvDone.setPreventDoubleClickScaleView {
         val bitmap = binding.flContainer.getBitmapFromView()
         val filePath =
-            requireContext().saveBitmapToFile(bitmap, System.currentTimeMillis().toString())
-        commonViewModel.currentAddedTextFilePath = filePath
+            saveBitmapToFile(bitmap, System.currentTimeMillis().toString())
+//        commonViewModel.currentAddedTextFilePath = filePath
         backEvent()
         Log.d("asgagwagwgagwa", "onDoneEvent: $filePath")
     }
 }
 
 @SuppressLint("ClickableViewAccessibility")
-fun AddTextFluidFragment.createNextTextView(): TextView {
-    val newTextView = TextView(requireContext()).apply {
+fun AddTextFluidActivity.createNextTextView(): TextView {
+    val newTextView = TextView(this).apply {
         text = "Draggable Text"
         textSize = 20f
         setTextColor(Color.WHITE)
@@ -129,7 +115,7 @@ fun AddTextFluidFragment.createNextTextView(): TextView {
 
     newTextView.setOnTouchListener(
         DraggableTouchListener(
-            context = requireContext(),
+            context = this,
             removeArea = binding.flAddText,
             container = binding.flContainer,
             onDoubleClick = {
@@ -156,7 +142,7 @@ fun AddTextFluidFragment.createNextTextView(): TextView {
     return newTextView
 }
 
-fun AddTextFluidFragment.setUpAdapter() {
+fun AddTextFluidActivity.setUpAdapter() {
     val listColor = listOf(
         "#DC3535",
         "#D9DC35",
@@ -189,10 +175,10 @@ fun AddTextFluidFragment.setUpAdapter() {
     })
 }
 
-fun AddTextFluidFragment.initView() {
+fun AddTextFluidActivity.initView() {
     setEventListener(
-        requireActivity(),
-        viewLifecycleOwner,
+        this,
+        this,
         KeyboardVisibilityEventListener { isShowKeyboard ->
             binding.clInfoText.isVisible = !isShowKeyboard
         })

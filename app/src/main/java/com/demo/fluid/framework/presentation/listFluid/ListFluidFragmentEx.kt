@@ -1,4 +1,4 @@
-package com.demo.fluid.framework.presentation.list_fluid
+package com.demo.fluid.framework.presentation.listFluid
 
 import androidx.activity.addCallback
 import androidx.navigation.fragment.findNavController
@@ -18,6 +18,10 @@ fun ListFluidFragment.onBackEvent() {
 
 fun ListFluidFragment.backEvent() {
     findNavController().navigateUp()
+}
+
+fun ListFluidFragment.initView() {
+    commonViewModel.currentAddedTextFilePath = null
 }
 
 fun ListFluidFragment.setUpAdapter() {

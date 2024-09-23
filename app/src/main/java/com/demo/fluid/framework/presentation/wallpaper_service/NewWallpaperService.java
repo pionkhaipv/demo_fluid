@@ -102,8 +102,7 @@ public final class NewWallpaperService extends WallpaperService {
             mGLSurfaceView.setEGLContextClientVersion(2);
             OrientationSensor orientationSensor = getOrientationSensor();
             Bitmap imageBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.bg_fluid_home);
-
-            newWallpaperService.setRenderer(new GLES20RendererLWP(nativeInterface, orientationSensor,imageBitmap));
+            newWallpaperService.setRenderer(new GLES20RendererLWP(nativeInterface, orientationSensor,imageBitmap,newWallpaperService.getApplication()));
             mGLSurfaceView.setRenderer(getRenderer());
             if (getRenderer() != null) {
                 GLES20RendererLWP renderer = getRenderer();

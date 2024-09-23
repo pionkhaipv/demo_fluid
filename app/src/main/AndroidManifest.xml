@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.demo.fluid">
 
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.SET_WALLPAPER" />
 
@@ -12,6 +11,7 @@
     <uses-feature
         android:name="android.software.live_wallpaper"
         android:required="true" />
+
     <supports-gl-texture android:name="GL_OES_compressed_ETC1_RGB8_texture" />
     <supports-gl-texture android:name="GL_OES_compressed_paletted_texture" />
 
@@ -20,29 +20,35 @@
 
     <application
         android:name=".MyApplication"
-        android:requestLegacyExternalStorage="true"
-        android:hardwareAccelerated="true"
-        android:usesCleartextTraffic="true"
         android:allowBackup="true"
-        android:largeHeap="true"
+        android:hardwareAccelerated="true"
         android:icon="@drawable/logo"
         android:label="@string/app_name"
+        android:largeHeap="true"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
         <activity
-            android:exported="true"
+            android:name=".framework.presentation.addTextFluid.AddTextFluidActivity"
+            android:exported="false" />
+        <activity
+            android:name=".framework.presentation.onScreenFluid.OnScreenActivity"
+            android:exported="false" />
+        <activity
             android:name=".framework.MainActivity"
+            android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <service
-            android:name="com.demo.fluid.framework.presentation.wallpaper_service.NewWallpaperService"
+            android:name=".framework.presentation.wallpaper_service.NewWallpaperService"
             android:enabled="true"
             android:exported="true"
             android:label="@string/app_name"
@@ -50,10 +56,12 @@
             <intent-filter android:priority="1">
                 <action android:name="android.service.wallpaper.WallpaperService" />
             </intent-filter>
+
             <meta-data
                 android:name="android.service.wallpaper"
                 android:resource="@xml/wallpaper" />
         </service>
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"
@@ -63,6 +71,7 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/filepaths" />
         </provider>
+
         <service
             android:name=".framework.presentation.wallpaper_service.DecompiledCameraWallpaper"
             android:exported="true"
@@ -71,6 +80,7 @@
             <intent-filter>
                 <action android:name="android.service.wallpaper.WallpaperService" />
             </intent-filter>
+
             <meta-data
                 android:name="android.service.wallpaper"
                 android:resource="@xml/image_wall_paper_main" />

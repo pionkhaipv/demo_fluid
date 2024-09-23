@@ -137,19 +137,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
+            <ImageView
+                android:id="@+id/iv_added_text"
+                android:scaleType="centerCrop"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_tutorial"
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#b3000000">
+                android:background="#b3000000"
+                android:visibility="gone">
 
                 <ImageView
                     android:id="@+id/iv_hand"
                     android:layout_width="@dimen/_64dp"
                     android:layout_height="@dimen/_64dp"
-                    android:src="@drawable/ic_hand"
                     android:layout_marginBottom="@dimen/_18dp"
+                    android:src="@drawable/ic_hand"
                     app:layout_constraintBottom_toTopOf="@id/tv_tutorial"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />

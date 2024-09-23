@@ -1,4 +1,4 @@
-package com.demo.fluid.framework.presentation.list_fluid
+package com.demo.fluid.framework.presentation.listFluid
 
 import com.demo.fluid.framework.presentation.model.HomeModel
 import dagger.hilt.android.lifecycle.HiltViewModel

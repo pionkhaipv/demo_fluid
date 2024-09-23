@@ -1,17 +1,21 @@
 package com.demo.fluid.util
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.graphics.Color
 import android.graphics.Rect
 import android.net.ConnectivityManager
 import android.net.Uri
 import android.os.SystemClock
+import android.util.DisplayMetrics
 import android.util.TypedValue
 import android.view.MotionEvent
 import android.view.View
+import android.view.WindowManager
 import android.view.animation.Animation
 import android.view.animation.LinearInterpolator
 import android.view.animation.RotateAnimation
@@ -23,6 +27,12 @@ import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
+import com.demo.fluid.util.gl.InputBuffer
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -51,25 +61,63 @@ fun View.getBitmapFromView(): Bitmap {
     return bitmap
 }
 
-fun Context.saveBitmapToFile(bitmap: Bitmap): String? {
-    val fileDir = File(filesDir, "text_folder") // Tên thư mục bạn muốn lưu file
-    if (!fileDir.exists()) {
-        fileDir.mkdir() // Tạo thư mục nếu chưa có
+fun Context.saveBitmapToFile(bitmap: Bitmap, fileName: String): String? {
+    // Get the window manager
+    val windowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
+
+    // Get the display metrics
+    val displayMetrics = DisplayMetrics()
+    windowManager.defaultDisplay.getRealMetrics(displayMetrics)
+    val screenWidth = displayMetrics.widthPixels
+    val screenHeight = displayMetrics.heightPixels
+
+    // Calculate the total height, including any system decorations (e.g., status bar, navigation bar)
+    val totalHeight = displayMetrics.heightPixels
+
+    // Get the action bar height
+    var actionBarHeight: Int
+    try {
+        val actionBarStyle = TypedValue()
+        theme.resolveAttribute(android.R.attr.actionBarSize, actionBarStyle, true)
+        actionBarHeight = TypedValue.complexToDimensionPixelSize(actionBarStyle.data, resources.displayMetrics)
+    } catch (e: Exception) {
+        actionBarHeight = 0 // Default to 0 if action bar height is not available
     }
-    val fileName = "my_file.png" // Tên file PNG
+
+    // Create a new bitmap with the total height
+    val resultBitmap = Bitmap.createBitmap(screenWidth, totalHeight, Bitmap.Config.ARGB_8888)
+    val canvas = Canvas(resultBitmap)
+
+    // Draw a transparent background
+    canvas.drawColor(Color.TRANSPARENT)
+
+    // Center the original bitmap on the new bitmap, considering the action bar
+    val left = (screenWidth - bitmap.width) / 2
+    val top = (totalHeight - bitmap.height) / 2
+    val rect = Rect(left, top, left + bitmap.width, top + bitmap.height)
+    canvas.drawBitmap(bitmap, null, rect, null)
+
+    // Save the bitmap to file
+    val fileDir = File(filesDir, "text_folder")
+    if (!fileDir.exists()) {
+        fileDir.mkdir() // Create directory if it does not exist
+    }
+    val fileName = "${fileName}.png" // PNG file name
     val file = File(fileDir, fileName)
 
-    try {
-        val outputStream = FileOutputStream(file)
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
-        outputStream.flush()
-        outputStream.close()
-        return file.absolutePath
+    return try {
+        FileOutputStream(file).use { outputStream ->
+            resultBitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
+            file.absolutePath
+        }
     } catch (e: IOException) {
         e.printStackTrace()
-        return null
+        null
     }
 }
+
+
+
 
 
 fun View.changeBackgroundColor(newColor: Int) {
@@ -175,6 +223,106 @@ fun View.setPreventDoubleClickScaleView(debounceTime: Long = 500, action: () -> 
             return true
         }
     })
+}
+
+fun Activity.simulateSwipe(xStart: Float, yStart: Float, xEnd: Float, yEnd: Float) {
+    val handler = CoroutineExceptionHandler { coroutineContext, throwable ->  }
+    CoroutineScope(Dispatchers.IO).launch(handler) {
+        val downTime = System.currentTimeMillis()
+        val eventTime = System.currentTimeMillis()
+
+        val pointerProperties = MotionEvent.PointerProperties().apply {
+            id = 0
+            toolType = MotionEvent.TOOL_TYPE_FINGER
+        }
+
+        val pointerCoordsStart = MotionEvent.PointerCoords().apply {
+            this.x = xStart
+            this.y = yStart
+        }
+
+        val downEvent = MotionEvent.obtain(
+            downTime, eventTime, MotionEvent.ACTION_DOWN,
+            1, arrayOf(pointerProperties), arrayOf(pointerCoordsStart),
+            0, 0, 1.0f, 1.0f, 2, 0, 0x1002, 0
+        )
+        InputBuffer.Instance.addEvent(downEvent)
+
+        delay(100)
+
+        val steps = 1  // Số bước di chuyển (càng nhiều thì càng mượt)
+        for (i in 1..steps) {
+            val intermediateX = xStart + (xEnd - xStart) * i / steps
+            val intermediateY = yStart + (yEnd - yStart) * i / steps
+
+            val pointerCoordsMove = MotionEvent.PointerCoords().apply {
+                this.x = intermediateX
+                this.y = intermediateY
+            }
+
+            val moveEvent = MotionEvent.obtain(
+                downTime, eventTime + i * 100, MotionEvent.ACTION_MOVE,
+                1, arrayOf(pointerProperties), arrayOf(pointerCoordsMove),
+                0, 0, 1.0f, 1.0f, 2, 0, 0x1002, 0
+            )
+            InputBuffer.Instance.addEvent(moveEvent)
+            moveEvent.recycle()
+
+           delay(50)
+        }
+
+        val pointerCoordsEnd = MotionEvent.PointerCoords().apply {
+            this.x = xEnd
+            this.y = yEnd
+        }
+
+        val upEvent = MotionEvent.obtain(
+            downTime, eventTime + 500, MotionEvent.ACTION_UP,
+            1, arrayOf(pointerProperties), arrayOf(pointerCoordsEnd),
+            0, 0, 1.0f, 1.0f, 2, 0, 0x1002, 0
+        )
+        InputBuffer.Instance.addEvent(upEvent)
+
+        downEvent.recycle()
+        upEvent.recycle()
+    }
+}
+
+fun simulateClick(x: Float, y: Float) {
+    val downTime = System.currentTimeMillis()
+    val eventTime = System.currentTimeMillis()
+
+    // Thiết lập PointerProperties với toolType là TOOL_TYPE_FINGER
+    val pointerProperties = MotionEvent.PointerProperties().apply {
+        id = 0
+        toolType = MotionEvent.TOOL_TYPE_FINGER
+    }
+
+    // Thiết lập PointerCoords để chứa tọa độ x, y
+    val pointerCoords = MotionEvent.PointerCoords().apply {
+        this.x = x
+        this.y = y
+    }
+
+    // Tạo MotionEvent "down" với deviceId = 2 và source = 0x1002
+    val downEvent = MotionEvent.obtain(
+        downTime, eventTime, MotionEvent.ACTION_DOWN,
+        1, arrayOf(pointerProperties), arrayOf(pointerCoords),
+        0, 0, 1.0f, 1.0f, 2, 0, 0x1002, 0
+    )
+    InputBuffer.Instance.addEvent(downEvent);
+
+    Thread.sleep(200)
+    // Tạo MotionEvent "up" với deviceId = 2 và source = 0x1002
+    val upEvent = MotionEvent.obtain(
+        downTime, eventTime + 500, MotionEvent.ACTION_UP,
+        1, arrayOf(pointerProperties), arrayOf(pointerCoords),
+        0, 0, 1.0f, 1.0f, 2, 0, 0x1002, 0
+    )
+    InputBuffer.Instance.addEvent(upEvent);
+
+    downEvent.recycle()
+    upEvent.recycle()
 }
 
 fun Fragment.displayToast(msg: String) {

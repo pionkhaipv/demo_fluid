@@ -2,16 +2,11 @@ package com.demo.fluid.framework.presentation.home
 
 import android.view.View
 import androidx.activity.addCallback
-import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.demo.fluid.R
 import com.demo.fluid.framework.MainActivity
-import com.demo.fluid.framework.presentation.home.HomeFragment
 import com.demo.fluid.framework.presentation.home.adapter.HorizontalMarginItemDecoration
-import com.demo.fluid.framework.presentation.list_fluid.ListFluidFragment
 import com.demo.fluid.util.setPreventDoubleClick
-import com.demo.fluid.util.setPreventDoubleClickScaleView
 import kotlin.math.abs
 
 fun HomeFragment.onBackEvent() {

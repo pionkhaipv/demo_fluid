@@ -32,17 +32,21 @@
     <fragment
         android:id="@+id/previewFluidFragment"
         tools:layout="@layout/fragment_preview_fluid"
-        android:name="com.demo.fluid.framework.presentation.preview_fluid.PreviewFluidFragment"
+        android:name="com.demo.fluid.framework.presentation.previewFluid.PreviewFluidFragment"
         android:label="PreviewFluidFragment" />
     <fragment
         android:id="@+id/transparentWallpaperFragment"
         tools:layout="@layout/fragment_transparent_wallpaper"
         android:name="com.demo.fluid.framework.presentation.transparentWallpaper.TransparentWallpaperFragment"
-        android:label="TransparentWallpaperFragment" />
+        android:label="TransparentWallpaperFragment" >
+        <action
+            android:id="@+id/action_transparentWallpaperFragment_to_previewTransparentFragment"
+            app:destination="@id/previewTransparentFragment" />
+    </fragment>
     <fragment
         android:id="@+id/listFluidFragment"
         tools:layout="@layout/fragment_list_fluid"
-        android:name="com.demo.fluid.framework.presentation.list_fluid.ListFluidFragment"
+        android:name="com.demo.fluid.framework.presentation.listFluid.ListFluidFragment"
         android:label="ListFluidFragment" >
         <action
             android:id="@+id/action_listFluidFragment_to_editFluidFragment"
@@ -54,20 +58,8 @@
         android:name="com.demo.fluid.framework.presentation.edit_fluid.EditFluidFragment"
         android:label="EditFluidFragment" >
         <action
-            android:id="@+id/action_editFluidFragment_to_onScreenFragment"
-            app:destination="@id/onScreenFragment" />
-        <action
             android:id="@+id/action_editFluidFragment_to_addTextFluidFragment"
             app:destination="@id/addTextFluidFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/onScreenFragment"
-        tools:layout="@layout/fragment_on_screen"
-        android:name="com.demo.fluid.framework.presentation.onScreenFluid.OnScreenFluidFragment"
-        android:label="OnScreenFragment" >
-        <action
-            android:id="@+id/action_onScreenFragment_to_editFluidFragment"
-            app:destination="@id/editFluidFragment" />
     </fragment>
     <fragment
         android:id="@+id/addTextFluidFragment"
@@ -78,4 +70,9 @@
             android:id="@+id/action_addTextFluidFragment_to_editFluidFragment"
             app:destination="@id/editFluidFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/previewTransparentFragment"
+        tools:layout="@layout/fragment_preview_transparent"
+        android:name="com.demo.fluid.framework.presentation.previewTransparent.PreviewTransparentFragment"
+        android:label="PreviewTransparentFragment" />
 </navigation>

@@ -1,17 +1,23 @@
 package com.demo.fluid.util.gl;
 
 import android.app.Activity;
+import android.app.Application;
+import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
+import android.graphics.BitmapFactory;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
-import android.view.SurfaceHolder;
+import android.opengl.GLUtils;
+import android.util.Log;
+import android.view.MotionEvent;
 
+import com.demo.fluid.R;
 import com.magicfluids.MotionEventWrapper;
 import com.magicfluids.NativeInterface;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
@@ -19,9 +25,9 @@ import java.nio.FloatBuffer;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-
 public final class GLES20RendererLWP implements GLSurfaceView.Renderer {
     private Activity activity;
+    private Application application;
     private int avgTimeNumSamples;
     private long avgTimeSamplesSum;
     private boolean ignoreNextFrameTime;
@@ -37,27 +43,47 @@ public final class GLES20RendererLWP implements GLSurfaceView.Renderer {
 
     private int shaderProgram;
     private int positionHandle;
-    private int colorHandle;
+    private int texCoordHandle;
+    private int textureHandle;
     private FloatBuffer vertexBuffer;
+    private FloatBuffer textureBuffer;
+
+    private int[] textures = new int[1]; // Mảng lưu texture
 
     private float[] triangleVertices = {
-            0.0f,  0.5f, 0.0f,  // Đỉnh trên cùng
-            -0.5f, -0.5f, 0.0f,  // Đỉnh trái
-            0.5f, -0.5f, 0.0f   // Đỉnh phải
+            -1.0f, 1.0f, 0.0f,  // Đỉnh trên cùng trái
+            -1.0f, -1.0f, 0.0f, // Đỉnh dưới cùng trái
+            1.0f, -1.0f, 0.0f,  // Đỉnh dưới cùng phải
+            1.0f, 1.0f, 0.0f    // Đỉnh trên cùng phải
     };
 
 
-    public GLES20RendererLWP(NativeInterface nativeInterface, OrientationSensor orientationSensor, Bitmap bitmap) {
+    private float[] textureCoords = {
+            0.0f, 0.0f,   // Top-left
+            0.0f, 1.0f,   // Bottom-left
+            1.0f, 1.0f,   // Bottom-right
+            1.0f, 0.0f    // Top-right
+    };
+
+    public GLES20RendererLWP(NativeInterface nativeInterface, OrientationSensor orientationSensor, Bitmap bitmap, Application application) {
         this.nativeInterface = nativeInterface;
         this.orientationSensor = orientationSensor;
         this.imageBitmap = bitmap;
+        this.application = application;
 
-        // Trong constructor
+        // Khởi tạo vertexBuffer
         ByteBuffer bb = ByteBuffer.allocateDirect(triangleVertices.length * 4);
         bb.order(ByteOrder.nativeOrder());
         vertexBuffer = bb.asFloatBuffer();
         vertexBuffer.put(triangleVertices);
         vertexBuffer.position(0);
+
+        // Khởi tạo textureBuffer
+        ByteBuffer tb = ByteBuffer.allocateDirect(textureCoords.length * 4);
+        tb.order(ByteOrder.nativeOrder());
+        textureBuffer = tb.asFloatBuffer();
+        textureBuffer.put(textureCoords);
+        textureBuffer.position(0);
     }
 
     public NativeInterface getNativeInterface() {
@@ -83,19 +109,29 @@ public final class GLES20RendererLWP implements GLSurfaceView.Renderer {
             checkGPUExtensions();
             onEGLContextCreated();
         }
-
+        // Kích hoạt blending
+        GLES20.glEnable(GLES20.GL_BLEND);
+        GLES20.glBlendFunc(GLES20.GL_SRC_ALPHA, GLES20.GL_ONE_MINUS_SRC_ALPHA);
         // Tạo shader và chương trình shader
         String vertexShaderCode =
                 "attribute vec4 vPosition;" +
+                        "attribute vec2 aTexCoord;" +
+                        "varying vec2 vTexCoord;" +
                         "void main() {" +
                         "  gl_Position = vPosition;" +
+                        "  vTexCoord = aTexCoord;" +
                         "}";
 
         String fragmentShaderCode =
                 "precision mediump float;" +
-                        "uniform vec4 uColor;" +
+                        "uniform sampler2D uTexture;" +
+                        "varying vec2 vTexCoord;" +
                         "void main() {" +
-                        "  gl_FragColor = uColor;" +
+                        "    vec4 texColor = texture2D(uTexture, vTexCoord);" +
+                        "    if (texColor.a < 0.1) {" +
+                        "        discard;" +
+                        "    }" +
+                        "    gl_FragColor = texColor;" +
                         "}";
 
         int vertexShader = GLES20.glCreateShader(GLES20.GL_VERTEX_SHADER);
@@ -113,7 +149,17 @@ public final class GLES20RendererLWP implements GLSurfaceView.Renderer {
 
         // Xác định các handles
         positionHandle = GLES20.glGetAttribLocation(shaderProgram, "vPosition");
-        colorHandle = GLES20.glGetUniformLocation(shaderProgram, "uColor");
+        texCoordHandle = GLES20.glGetAttribLocation(shaderProgram, "aTexCoord");
+        textureHandle = GLES20.glGetUniformLocation(shaderProgram, "uTexture");
+
+        // Kích hoạt blending
+        GLES20.glEnable(GLES20.GL_BLEND);
+        GLES20.glBlendFunc(GLES20.GL_SRC_ALPHA, GLES20.GL_ONE_MINUS_SRC_ALPHA);
+        // Tạo texture
+        loadTexture(application, R.drawable.aaaaa); // Thay bằng ảnh PNG của bạn
+        // Kích hoạt blending
+        GLES20.glEnable(GLES20.GL_BLEND);
+        GLES20.glBlendFunc(GLES20.GL_SRC_ALPHA, GLES20.GL_ONE_MINUS_SRC_ALPHA);
     }
 
     @Override
@@ -144,20 +190,53 @@ public final class GLES20RendererLWP implements GLSurfaceView.Renderer {
         }
         this.nativeInterface.updateApp(this.ignoreNextFrameTime, false, this.orientationSensor.getAccelerationX(), this.orientationSensor.getAccelerationY(), this.orientationSensor.getOrientation());
         this.ignoreNextFrameTime = false;
-        drawTriangle();
+        drawTexture(); // Gọi phương thức vẽ texture
     }
 
-    private void drawTriangle() {
+    private void drawTexture() {
         GLES20.glUseProgram(shaderProgram);
 
+        // Kích hoạt và gán dữ liệu cho vị trí đỉnh
         vertexBuffer.position(0);
         GLES20.glEnableVertexAttribArray(positionHandle);
         GLES20.glVertexAttribPointer(positionHandle, 3, GLES20.GL_FLOAT, false, 0, vertexBuffer);
 
-        GLES20.glUniform4f(colorHandle, 1.0f, 1.0f, 1.0f, 1.0f); // Màu trắng
-        GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, 3);
+        // Gán dữ liệu cho tọa độ texture
+        textureBuffer.position(0);
+        GLES20.glEnableVertexAttribArray(texCoordHandle);
+        GLES20.glVertexAttribPointer(texCoordHandle, 2, GLES20.GL_FLOAT, false, 0, textureBuffer);
 
+        // Kích hoạt texture
+        GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
+        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textures[0]);
+        GLES20.glUniform1i(textureHandle, 0);
+
+        // Vẽ hình vuông
+        GLES20.glDrawArrays(GLES20.GL_TRIANGLE_FAN, 0, 4);
+
+        // Tắt các attribute
         GLES20.glDisableVertexAttribArray(positionHandle);
+        GLES20.glDisableVertexAttribArray(texCoordHandle);
+    }
+
+    private void loadTexture(Context context, int resourceId) {
+        GLES20.glGenTextures(1, textures, 0);
+        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textures[0]);
+
+        GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_LINEAR);
+        GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_LINEAR);
+        GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_S, GLES20.GL_CLAMP_TO_EDGE);
+        GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_T, GLES20.GL_CLAMP_TO_EDGE);
+
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+        Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), resourceId, options);
+
+        // Chuyển đổi ảnh thành texture
+        GLES20.glTexImage2D(GLES20.GL_TEXTURE_2D, 0, GLES20.GL_RGBA, bitmap.getWidth(), bitmap.getHeight(), 0, GLES20.GL_RGBA, GLES20.GL_UNSIGNED_BYTE, null);
+        GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, bitmap, 0);
+
+        bitmap.recycle();
     }
 
 
@@ -166,11 +245,13 @@ public final class GLES20RendererLWP implements GLSurfaceView.Renderer {
     public void onSurfaceChanged(GL10 gl10, int i, int i2) {
         this.screenWidth = i;
         this.screenHeight = i2;
+        Log.d("asgaggawgwa", "onSurfaceChanged: width" +i);
+        Log.d("asgaggawgwa", "onSurfaceChanged: width" +i2);
         this.nativeInterface.windowChanged(i, i2);
     }
 
     private void checkGPUExtensions() {
-        GLES20.glGetString(7939);
+        GLES20.glGetString(GLES20.GL_EXTENSIONS);
         this.nativeInterface.setAvailableGPUExtensions(true, true);
     }
 
@@ -178,4 +259,3 @@ public final class GLES20RendererLWP implements GLSurfaceView.Renderer {
         this.nativeInterface.onGLContextRestarted();
     }
 }
-

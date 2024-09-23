@@ -3,6 +3,7 @@ package com.demo.fluid.util.gl;
 import android.content.Context;
 import android.opengl.GLSurfaceView;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 
 
@@ -19,6 +20,7 @@ public final class MyGLSurfaceView extends GLSurfaceView {
 
     @Override
     public boolean onTouchEvent(MotionEvent motionEvent) {
+        Log.d("asgawgwaggaw", "onTouchEvent: "+motionEvent);
         InputBuffer.Instance.addEvent(motionEvent);
         return true;
     }

@@ -49,7 +49,7 @@ fun TransparentWallpaperFragment.initView() {
                 dialog.setListener(listener = object : UnlockTransparentDialog.Listener {
                     override fun onWatchAdsClick() {
                         isAlreadyUnlock = true
-                        setCameraToWallPaper(requireContext())
+                        safeNav(R.id.transparentWallpaperFragment,R.id.action_transparentWallpaperFragment_to_previewTransparentFragment)
                     }
 
                     override fun onBuyVipVersion() {
@@ -57,9 +57,8 @@ fun TransparentWallpaperFragment.initView() {
                 })
                 dialog.show(childFragmentManager)
             } else {
-                setCameraToWallPaper(requireContext())
+                safeNav(R.id.transparentWallpaperFragment,R.id.action_transparentWallpaperFragment_to_previewTransparentFragment)
             }
-
         }
     }
 }
@@ -94,21 +93,5 @@ fun TransparentWallpaperFragment.setUpCameraView() {
         binding.cameraContainer.addView(cameraView)
         cameraView?.setLifecycleOwner(viewLifecycleOwner)
         cameraView?.addCameraListener(Listener())
-    }
-}
-
-fun setCameraToWallPaper(context: Context) {
-    Intent(WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER).apply {
-        putExtra(
-            WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT,
-            ComponentName(context, DecompiledCameraWallpaper::class.java)
-        )
-    }.also {
-        context.startActivity(it)
-    }
-    try {
-        WallpaperManager.getInstance(context).clear()
-    } catch (e: IOException) {
-        e.printStackTrace()
     }
 }

@@ -1,4 +1,4 @@
-package com.demo.fluid.framework.presentation.list_fluid.adapter
+package com.demo.fluid.framework.presentation.listFluid.adapter
 
 import android.graphics.drawable.Drawable
 import android.net.Uri

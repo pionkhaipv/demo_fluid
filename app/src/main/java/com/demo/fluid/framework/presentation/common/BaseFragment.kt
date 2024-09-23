@@ -23,7 +23,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import pion.tech.fluid_wallpaper.framework.presentation.common.CommonViewModel
 import timber.log.Timber
 
 

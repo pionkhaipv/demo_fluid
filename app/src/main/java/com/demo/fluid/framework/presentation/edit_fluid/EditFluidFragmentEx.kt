@@ -1,22 +1,44 @@
 package com.demo.fluid.framework.presentation.edit_fluid
 
 import android.annotation.SuppressLint
+import android.app.Instrumentation
 import android.app.WallpaperManager
 import android.content.ComponentName
 import android.content.Intent
+import android.opengl.GLSurfaceView
+import android.os.Build
 import android.os.Bundle
+import android.os.SystemClock
+import android.view.InputDevice
+import android.view.MotionEvent
+import android.view.View
+import android.view.ViewGroup
 import androidx.activity.addCallback
+import androidx.core.os.bundleOf
+import androidx.fragment.app.FragmentResultListener
 import androidx.navigation.fragment.findNavController
 import com.demo.fluid.R
+import com.demo.fluid.framework.presentation.addTextFluid.AddTextFluidActivity
+import com.demo.fluid.framework.presentation.onScreenFluid.OnScreenActivity
 import com.demo.fluid.framework.presentation.wallpaper_service.NewWallpaperService
 import com.demo.fluid.util.BundleKey
 import com.demo.fluid.util.Common
 import com.demo.fluid.util.displayToast
 import com.demo.fluid.util.gl.GLES20Renderer
+import com.demo.fluid.util.gl.InputBuffer
 import com.demo.fluid.util.gl.OrientationSensor
 import com.demo.fluid.util.gl.SettingsStorage
 import com.magicfluids.Config
 import com.demo.fluid.util.setPreventDoubleClickScaleView
+import pion.tech.fluid_wallpaper.util.loadImage
+import pion.tech.fluid_wallpaper.util.safeDelay
+import java.io.File
+
+fun EditFluidFragment.initView() {
+    if (commonViewModel.currentAddedTextFilePath != null) {
+        binding.ivAddedText.loadImage(File(commonViewModel.currentAddedTextFilePath!!))
+    }
+}
 
 fun EditFluidFragment.onBackEvent() {
     binding.ivBack.setPreventDoubleClickScaleView {
@@ -28,7 +50,7 @@ fun EditFluidFragment.onBackEvent() {
 }
 
 fun EditFluidFragment.backEvent() {
-    findNavController().popBackStack(R.id.listFluidFragment,false)
+    findNavController().popBackStack(R.id.listFluidFragment, false)
 }
 
 fun EditFluidFragment.setUpSurfaceView() {
@@ -48,6 +70,10 @@ fun EditFluidFragment.setUpSurfaceView() {
     renderer.setInitialScreenSize(300, 200)
     nativeInterface.onCreate(300, 200, false)
     nativeInterface.updateConfig(config)
+//    safeDelay(3000) {
+//        displayToast("Vuot")
+//        simulateSwipe(xStart = 0.0f, yStart = 0.0f, xEnd = 248f, yEnd = 423f)
+//    }
 }
 
 
@@ -79,21 +105,21 @@ fun EditFluidFragment.startHandAnim() {
 
 fun EditFluidFragment.onScreenEvent() {
     binding.btnOnscreen.setPreventDoubleClickScaleView {
-        val bundle = Bundle()
-        bundle.putString(BundleKey.KEY_FLUID_NAME_ON_SCREEN, nameWallpaper)
-        safeNav(R.id.editFluidFragment, R.id.action_editFluidFragment_to_onScreenFragment, bundle)
+        val intent = Intent(requireContext(), OnScreenActivity::class.java)
+        intent.putExtra(BundleKey.KEY_FLUID_NAME_ON_SCREEN, nameWallpaper)
+        startActivity(intent)
     }
 }
 
 fun EditFluidFragment.addTextEvent() {
     binding.btnAddText.setPreventDoubleClickScaleView {
-        val bundle = Bundle()
-        bundle.putString(BundleKey.KEY_FLUID_NAME_ADD_TEXT, nameWallpaper)
-        safeNav(R.id.editFluidFragment, R.id.action_editFluidFragment_to_addTextFluidFragment, bundle)
+        val intent = Intent(requireContext(), AddTextFluidActivity::class.java)
+        intent.putExtra(BundleKey.KEY_FLUID_NAME_ADD_TEXT, nameWallpaper)
+        startActivity(intent)
     }
 }
 
-fun EditFluidFragment.setWallpaperEvent(){
+fun EditFluidFragment.setWallpaperEvent() {
     binding.btnSetWallpaper.setPreventDoubleClickScaleView {
         try {
             WallpaperManager.getInstance(requireContext()).clear()

@@ -1,4 +1,4 @@
-package com.demo.fluid.framework.presentation.list_fluid
+package com.demo.fluid.framework.presentation.listFluid
 
 import android.os.Bundle
 import android.view.View
@@ -6,7 +6,7 @@ import com.demo.fluid.R
 import com.demo.fluid.databinding.FragmentListFluidBinding
 import dagger.hilt.android.AndroidEntryPoint
 import com.demo.fluid.framework.presentation.common.BaseFragment
-import com.demo.fluid.framework.presentation.list_fluid.adapter.FluidAdapter
+import com.demo.fluid.framework.presentation.listFluid.adapter.FluidAdapter
 import com.demo.fluid.framework.presentation.model.HomeModel
 import com.demo.fluid.util.BundleKey
 
@@ -18,6 +18,7 @@ class ListFluidFragment : BaseFragment<FragmentListFluidBinding, ListFluidViewMo
 
     val adapter = FluidAdapter()
     override fun init(view: View) {
+        initView()
         onBackEvent()
         viewModel.initData()
         setUpAdapter()
