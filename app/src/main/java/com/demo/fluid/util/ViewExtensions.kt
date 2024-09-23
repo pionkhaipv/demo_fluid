@@ -224,6 +224,33 @@ fun View.setPreventDoubleClickScaleView(debounceTime: Long = 500, action: () -> 
         }
     })
 }
+fun Activity.addActionUp(){
+    val handler = CoroutineExceptionHandler { coroutineContext, throwable ->  }
+    CoroutineScope(Dispatchers.IO).launch(handler) {
+        delay(50)
+        val downTime = System.currentTimeMillis()
+        val eventTime = System.currentTimeMillis()
+
+        val pointerProperties = MotionEvent.PointerProperties().apply {
+            id = 0
+            toolType = MotionEvent.TOOL_TYPE_FINGER
+        }
+
+        val pointerCoordsEnd = MotionEvent.PointerCoords().apply {
+            this.x = 0f
+            this.y = 0f
+        }
+
+        val upEvent = MotionEvent.obtain(
+            downTime, eventTime + 500, MotionEvent.ACTION_UP,
+            1, arrayOf(pointerProperties), arrayOf(pointerCoordsEnd),
+            0, 0, 1.0f, 1.0f, 2, 0, 0x1002, 0
+        )
+        InputBuffer.Instance.addEvent(upEvent)
+
+        upEvent.recycle()
+    }
+}
 
 fun Activity.simulateSwipe(xStart: Float, yStart: Float, xEnd: Float, yEnd: Float) {
     val handler = CoroutineExceptionHandler { coroutineContext, throwable ->  }
@@ -250,7 +277,7 @@ fun Activity.simulateSwipe(xStart: Float, yStart: Float, xEnd: Float, yEnd: Floa
 
         delay(100)
 
-        val steps = 1  // Số bước di chuyển (càng nhiều thì càng mượt)
+        val steps = 10  // Số bước di chuyển (càng nhiều thì càng mượt)
         for (i in 1..steps) {
             val intermediateX = xStart + (xEnd - xStart) * i / steps
             val intermediateY = yStart + (yEnd - yStart) * i / steps
@@ -268,7 +295,7 @@ fun Activity.simulateSwipe(xStart: Float, yStart: Float, xEnd: Float, yEnd: Floa
             InputBuffer.Instance.addEvent(moveEvent)
             moveEvent.recycle()
 
-           delay(50)
+           delay(100)
         }
 
         val pointerCoordsEnd = MotionEvent.PointerCoords().apply {
@@ -277,7 +304,7 @@ fun Activity.simulateSwipe(xStart: Float, yStart: Float, xEnd: Float, yEnd: Floa
         }
 
         val upEvent = MotionEvent.obtain(
-            downTime, eventTime + 500, MotionEvent.ACTION_UP,
+            downTime, eventTime + 1000, MotionEvent.ACTION_UP,
             1, arrayOf(pointerProperties), arrayOf(pointerCoordsEnd),
             0, 0, 1.0f, 1.0f, 2, 0, 0x1002, 0
         )
@@ -288,7 +315,7 @@ fun Activity.simulateSwipe(xStart: Float, yStart: Float, xEnd: Float, yEnd: Floa
     }
 }
 
-fun simulateClick(x: Float, y: Float) {
+fun simulateClick(view: View) {
     val downTime = System.currentTimeMillis()
     val eventTime = System.currentTimeMillis()
 
@@ -300,30 +327,37 @@ fun simulateClick(x: Float, y: Float) {
 
     // Thiết lập PointerCoords để chứa tọa độ x, y
     val pointerCoords = MotionEvent.PointerCoords().apply {
-        this.x = x
-        this.y = y
+        this.x = 100f
+        this.y = 100f
     }
 
-    // Tạo MotionEvent "down" với deviceId = 2 và source = 0x1002
+    // Tạo MotionEvent "down" cho hành động click
     val downEvent = MotionEvent.obtain(
         downTime, eventTime, MotionEvent.ACTION_DOWN,
         1, arrayOf(pointerProperties), arrayOf(pointerCoords),
-        0, 0, 1.0f, 1.0f, 2, 0, 0x1002, 0
+        0, 0, 1.0f, 1.0f, 0, 0, 0, 0
     )
-    InputBuffer.Instance.addEvent(downEvent);
+
+    // Gửi sự kiện "down" đến view
+    view.dispatchTouchEvent(downEvent)
 
     Thread.sleep(200)
-    // Tạo MotionEvent "up" với deviceId = 2 và source = 0x1002
-    val upEvent = MotionEvent.obtain(
-        downTime, eventTime + 500, MotionEvent.ACTION_UP,
-        1, arrayOf(pointerProperties), arrayOf(pointerCoords),
-        0, 0, 1.0f, 1.0f, 2, 0, 0x1002, 0
-    )
-    InputBuffer.Instance.addEvent(upEvent);
 
+    // Tạo MotionEvent "up" cho hành động thả
+    val upEvent = MotionEvent.obtain(
+        downTime, eventTime + 200, MotionEvent.ACTION_UP,
+        1, arrayOf(pointerProperties), arrayOf(pointerCoords),
+        0, 0, 1.0f, 1.0f, 0, 0, 0, 0
+    )
+
+    // Gửi sự kiện "up" đến view
+    view.dispatchTouchEvent(upEvent)
+
+    // Giải phóng tài nguyên của MotionEvent
     downEvent.recycle()
     upEvent.recycle()
 }
+
 
 fun Fragment.displayToast(msg: String) {
     Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()

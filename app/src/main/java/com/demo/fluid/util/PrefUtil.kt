@@ -28,6 +28,18 @@ class PrefUtil {
             set(value) {
                 editor.putString("CachedToken", value).commit()
             }
+
+        var isChangeLanguageFromFirstOpen : Boolean
+            get() = sharedPreferences.getBoolean("isChangeLanguageFromFirstOpen", false)
+            set(value) {
+                editor.putBoolean("isChangeLanguageFromFirstOpen", value).commit()
+            }
+
+        var isChangeLanguageFromSetting : Boolean
+            get() = sharedPreferences.getBoolean("isChangeLanguageFromSetting", false)
+            set(value) {
+                editor.putBoolean("isChangeLanguageFromSetting", value).commit()
+            }
     }
 
 }

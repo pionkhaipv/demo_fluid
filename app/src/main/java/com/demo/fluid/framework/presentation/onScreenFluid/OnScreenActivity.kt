@@ -2,9 +2,12 @@ package com.demo.fluid.framework.presentation.onScreenFluid
 
 import android.os.Bundle
 import android.os.Handler
+import android.view.MotionEvent
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.demo.fluid.databinding.ActivityOnScreenBinding
+import com.demo.fluid.util.addActionUp
+import com.demo.fluid.util.gl.InputBuffer
 import com.magicfluids.Config
 import com.magicfluids.NativeInterface
 import dagger.hilt.android.AndroidEntryPoint
@@ -46,6 +49,7 @@ class OnScreenActivity : AppCompatActivity() {
         nativeInterface.onDestroy()
         window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         randomRunnable?.let { randomHandler?.removeCallbacks(it) }
+        addActionUp()
     }
 
 }

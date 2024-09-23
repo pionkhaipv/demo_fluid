@@ -12,6 +12,7 @@ roundedimageview = "2.3.0"
 compileSdkVersion = "34"
 minSdkVersion = "24"
 targetSdkVersion = "34"
+permissionx = "1.8.1"
 
 agp = "8.5.0"
 kotlin = "1.9.22"
@@ -70,6 +71,7 @@ androidx-constraintlayout = { group = "androidx.constraintlayout", name = "const
 androidx-recyclerview = { module = "androidx.recyclerview:recyclerview", version.ref = "recyclerview" }
 androidx-swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version.ref = "swiperefreshlayout" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
+permissionx = { module = "com.guolindev.permissionx:permissionx", version.ref = "permissionx" }
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }

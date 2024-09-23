@@ -42,7 +42,6 @@ class AddTextFluidActivity : AppCompatActivity() {
         onApplyEvent()
         onDoneEvent()
         setUpAdapter()
-
     }
 
     override fun onResume() {

@@ -1,0 +1,556 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#21201B">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_56dp"
+        android:background="#201F1A"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingStart="@dimen/_12dp"
+            android:paddingEnd="@dimen/_20dp"
+            android:src="@drawable/ic_back"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_5dp"
+            android:fontFamily="@font/font_500"
+            android:text="@string/setting"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/ll_app_version"
+        app:layout_constraintTop_toBottomOf="@id/cl_title_bar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="@dimen/_26dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_31dp"
+                android:fontFamily="@font/font_700"
+                android:text="@string/general_setting"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_14sp" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_setting_language"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/_20dp">
+
+                <ImageView
+                    android:id="@+id/iv_language"
+                    android:layout_width="@dimen/_24dp"
+                    android:layout_height="@dimen/_24dp"
+                    android:src="@drawable/ic_change_language"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="#FFD656" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_16dp"
+                    android:fontFamily="@font/font_400"
+                    android:text="@string/language"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_16sp"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_language"
+                    app:layout_constraintStart_toEndOf="@id/iv_language"
+                    app:layout_constraintTop_toTopOf="@id/iv_language" />
+
+                <ImageView
+                    android:layout_width="@dimen/_24dp"
+                    android:layout_height="@dimen/_24dp"
+                    android:src="@drawable/ic_choose_setting"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_language"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/iv_language"
+                    app:tint="#000000" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_35dp"
+                android:fontFamily="@font/font_700"
+                android:text="@string/help"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_14sp" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_feedback"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/_20dp">
+
+                <ImageView
+                    android:id="@+id/iv_feedback"
+                    android:layout_width="@dimen/_24dp"
+                    android:layout_height="@dimen/_24dp"
+                    android:src="@drawable/ic_feedback_email"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="#FFD656" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_16dp"
+                    android:layout_marginEnd="@dimen/_2dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/font_400"
+                    android:maxLines="1"
+                    android:text="@string/feedback_to_email"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_16sp"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_feedback"
+                    app:layout_constraintEnd_toStartOf="@id/iv_arrow_feedback"
+                    app:layout_constraintStart_toEndOf="@id/iv_feedback"
+                    app:layout_constraintTop_toTopOf="@id/iv_feedback" />
+
+                <ImageView
+                    android:id="@+id/iv_arrow_feedback"
+                    android:layout_width="@dimen/_24dp"
+                    android:layout_height="@dimen/_24dp"
+                    android:src="@drawable/ic_choose_setting"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_feedback"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/iv_feedback"
+                    app:tint="#000000" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_35dp"
+                android:fontFamily="@font/font_700"
+                android:text="@string/information_about"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_14sp" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_dev"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/_20dp">
+
+                <ImageView
+                    android:id="@+id/iv_dev"
+                    android:layout_width="@dimen/_24dp"
+                    android:layout_height="@dimen/_24dp"
+                    android:src="@drawable/ic_dev"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="#FFD656" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_16dp"
+                    android:fontFamily="@font/font_400"
+                    android:text="@string/developer"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_16sp"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_dev"
+                    app:layout_constraintStart_toEndOf="@id/iv_dev"
+                    app:layout_constraintTop_toTopOf="@id/iv_dev" />
+
+                <ImageView
+                    android:layout_width="@dimen/_24dp"
+                    android:layout_height="@dimen/_24dp"
+                    android:src="@drawable/ic_choose_setting"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_dev"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/iv_dev"
+                    app:tint="#000000" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_ad"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/_20dp"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/iv_ad"
+                    android:layout_width="@dimen/_24dp"
+                    android:layout_height="@dimen/_24dp"
+                    android:src="@drawable/ic_ad"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="#FFD656" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_16dp"
+                    android:fontFamily="@font/font_400"
+                    android:text="@string/adverstisement"
+                    android:textColor="#000000"
+                    android:textSize="@dimen/_16sp"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_ad"
+                    app:layout_constraintStart_toEndOf="@id/iv_ad"
+                    app:layout_constraintTop_toTopOf="@id/iv_ad" />
+
+                <ImageView
+                    android:layout_width="@dimen/_24dp"
+                    android:layout_height="@dimen/_24dp"
+                    android:src="@drawable/ic_choose_setting"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_ad"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/iv_ad"
+                    app:tint="#000000" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_purchase"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/_20dp"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/iv_purchase"
+                    android:layout_width="@dimen/_24dp"
+                    android:layout_height="@dimen/_24dp"
+                    android:src="@drawable/ic_purchase"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="#FFD656" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_16dp"
+                    android:layout_marginEnd="@dimen/_2dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/font_400"
+                    android:maxLines="1"
+                    android:text="@string/purchase_manager"
+                    android:textColor="#000000"
+                    android:textSize="@dimen/_16sp"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_purchase"
+                    app:layout_constraintEnd_toStartOf="@id/iv_arrow_purchase"
+                    app:layout_constraintStart_toEndOf="@id/iv_purchase"
+                    app:layout_constraintTop_toTopOf="@id/iv_purchase" />
+
+                <ImageView
+                    android:id="@+id/iv_arrow_purchase"
+                    android:layout_width="@dimen/_24dp"
+                    android:layout_height="@dimen/_24dp"
+                    android:src="@drawable/ic_choose_setting"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_purchase"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/iv_purchase"
+                    app:tint="#000000" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_permission"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/_20dp">
+
+                <ImageView
+                    android:id="@+id/iv_permission"
+                    android:layout_width="@dimen/_24dp"
+                    android:layout_height="@dimen/_24dp"
+                    android:src="@drawable/ic_permission"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="#FFD656" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_16dp"
+                    android:fontFamily="@font/font_400"
+                    android:text="@string/permission"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_16sp"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_permission"
+                    app:layout_constraintStart_toEndOf="@id/iv_permission"
+                    app:layout_constraintTop_toTopOf="@id/iv_permission" />
+
+                <ImageView
+                    android:layout_width="@dimen/_24dp"
+                    android:layout_height="@dimen/_24dp"
+                    android:src="@drawable/ic_choose_setting"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_permission"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/iv_permission"
+                    app:tint="#000000" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_policy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/_20dp">
+
+                <ImageView
+                    android:id="@+id/iv_policy"
+                    android:layout_width="@dimen/_24dp"
+                    android:layout_height="@dimen/_24dp"
+                    android:src="@drawable/ic_policy"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="#FFD656" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_16dp"
+                    android:fontFamily="@font/font_400"
+                    android:text="@string/privacy_policy"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_16sp"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_policy"
+                    app:layout_constraintStart_toEndOf="@id/iv_policy"
+                    app:layout_constraintTop_toTopOf="@id/iv_policy" />
+
+                <ImageView
+                    android:layout_width="@dimen/_24dp"
+                    android:layout_height="@dimen/_24dp"
+                    android:src="@drawable/ic_choose_setting"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_policy"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/iv_policy"
+                    app:tint="#000000" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/btnGdpr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/_20dp">
+
+                <ImageView
+                    android:id="@+id/iv_gdpr"
+                    android:layout_width="@dimen/_24dp"
+                    android:layout_height="@dimen/_24dp"
+                    android:src="@drawable/ic_gdpr"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_16dp"
+                    android:fontFamily="@font/font_400"
+                    android:text="GDPR"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_16sp"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_gdpr"
+                    app:layout_constraintStart_toEndOf="@id/iv_gdpr"
+                    app:layout_constraintTop_toTopOf="@id/iv_gdpr" />
+
+                <ImageView
+                    android:layout_width="@dimen/_24dp"
+                    android:layout_height="@dimen/_24dp"
+                    android:src="@drawable/ic_choose_setting"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_gdpr"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/iv_gdpr"
+                    app:tint="@color/black" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/btnResetGdpr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/_20dp">
+
+                <ImageView
+                    android:id="@+id/iv_resetGDPR"
+                    android:layout_width="@dimen/_24dp"
+                    android:layout_height="@dimen/_24dp"
+                    android:src="@drawable/ic_policy"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="#FFD656" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_16dp"
+                    android:fontFamily="@font/font_400"
+                    android:text="Reset GDPR"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_16sp"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_resetGDPR"
+                    app:layout_constraintStart_toEndOf="@id/iv_resetGDPR"
+                    app:layout_constraintTop_toTopOf="@id/iv_resetGDPR" />
+
+                <ImageView
+                    android:layout_width="@dimen/_24dp"
+                    android:layout_height="@dimen/_24dp"
+                    android:src="@drawable/ic_choose_setting"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_resetGDPR"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/iv_resetGDPR"
+                    app:tint="@color/black" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/btnResetIap"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/_20dp">
+
+                <ImageView
+                    android:id="@+id/iv_resetIap"
+                    android:layout_width="@dimen/_24dp"
+                    android:layout_height="@dimen/_24dp"
+                    android:src="@drawable/ic_policy"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="#FFD656" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_16dp"
+                    android:fontFamily="@font/font_400"
+                    android:text="ResetIap"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_16sp"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_resetIap"
+                    app:layout_constraintStart_toEndOf="@id/iv_resetIap"
+                    app:layout_constraintTop_toTopOf="@id/iv_resetIap" />
+
+                <ImageView
+                    android:layout_width="@dimen/_24dp"
+                    android:layout_height="@dimen/_24dp"
+                    android:src="@drawable/ic_choose_setting"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_resetIap"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/iv_resetIap"
+                    app:tint="@color/black" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_term"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/_20dp"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/iv_term"
+                    android:layout_width="@dimen/_24dp"
+                    android:layout_height="@dimen/_24dp"
+                    android:src="@drawable/ic_term"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_16dp"
+                    android:layout_marginEnd="@dimen/_2dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/font_400"
+                    android:gravity="left"
+                    android:maxLines="1"
+                    android:text="@string/term_and_conditions"
+
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_16sp"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_term"
+                    app:layout_constraintEnd_toStartOf="@id/iv_arrow_term"
+                    app:layout_constraintStart_toEndOf="@id/iv_term"
+                    app:layout_constraintTop_toTopOf="@id/iv_term" />
+
+                <ImageView
+                    android:id="@+id/iv_arrow_term"
+                    android:layout_width="@dimen/_24dp"
+                    android:layout_height="@dimen/_24dp"
+                    android:src="@drawable/ic_choose_setting"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_term"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/iv_term" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/ll_app_version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_3dp"
+        android:fontFamily="@font/font_500"
+        android:text="@string/application_version_v"
+        android:textColor="#3B3B3B"
+        android:textSize="@dimen/_12sp"
+        app:layout_constraintBottom_toTopOf="@id/ll_company_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/ll_company_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_20dp"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font_500"
+            android:text="@string/pion_tech"
+            android:textColor="#929292"
+            android:textSize="@dimen/_12sp" />
+
+        <ImageView
+            android:layout_width="@dimen/_10dp"
+            android:layout_height="@dimen/_10dp"
+            android:layout_marginHorizontal="@dimen/_3dp"
+            android:src="@drawable/ic_c" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font_500"
+            android:text="2023"
+            android:textColor="#929292"
+            android:textSize="@dimen/_12sp" />
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

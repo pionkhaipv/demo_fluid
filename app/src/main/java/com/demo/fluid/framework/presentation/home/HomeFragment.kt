@@ -20,6 +20,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
         onNextEvent()
         onPreviousEvent()
         onBackEvent()
+        settingEvent()
 
     }
 

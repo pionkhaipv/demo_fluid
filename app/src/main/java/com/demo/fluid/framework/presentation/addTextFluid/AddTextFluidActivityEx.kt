@@ -3,16 +3,20 @@ package com.demo.fluid.framework.presentation.addTextFluid
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.util.Log
+import android.view.Gravity
+import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.SeekBar
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
-import androidx.core.widget.doOnTextChanged
 import com.demo.fluid.R
 import com.demo.fluid.customview.DraggableTouchListener
 import com.demo.fluid.framework.presentation.addTextFluid.adapter.ColorAdapter
 import com.demo.fluid.framework.presentation.addTextFluid.adapter.FontFamilyAdapter
+import com.demo.fluid.framework.presentation.edit_fluid.adjustSurfaceViewSizeWithActionBar
+import com.demo.fluid.util.Constant
 import com.demo.fluid.util.getBitmapFromView
 import com.demo.fluid.util.gl.GLES20Renderer
 import com.demo.fluid.util.gl.OrientationSensor
@@ -28,7 +32,7 @@ import pion.tech.fluid_wallpaper.util.hideKeyboard
 fun AddTextFluidActivity.setUpCustomTextView() {
     binding.sbFontSize.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
         override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-            currentEditTextView?.textSize = progress.toFloat()
+            binding.edtChangeText.textSize = progress.toFloat()
         }
 
         override fun onStartTrackingTouch(seekBar: SeekBar?) {
@@ -40,9 +44,6 @@ fun AddTextFluidActivity.setUpCustomTextView() {
         }
     })
 
-    binding.edtChangeText.doOnTextChanged { text, start, before, count ->
-        currentEditTextView?.text = text
-    }
 }
 
 fun AddTextFluidActivity.setUpSurfaceView() {
@@ -77,7 +78,21 @@ fun AddTextFluidActivity.backEvent() {
 fun AddTextFluidActivity.addTextEvent() {
     binding.llAddText.setPreventDoubleClickScaleView {
         val newTextView = createNextTextView()
+
+        val layoutParams = FrameLayout.LayoutParams(
+            FrameLayout.LayoutParams.WRAP_CONTENT,
+            FrameLayout.LayoutParams.WRAP_CONTENT
+        ).apply {
+            gravity = Gravity.CENTER
+        }
+
+        // Gán layout params cho TextView
+        newTextView.layoutParams = layoutParams
+        newTextView.y -= 20
+
+        // Thêm TextView vào flContainer
         binding.flContainer.addView(newTextView)
+
     }
 }
 
@@ -87,6 +102,10 @@ fun AddTextFluidActivity.onApplyEvent() {
         binding.tvApply.isVisible = false
         binding.tvDone.isVisible = true
         binding.tvApply.hideKeyboard()
+
+        currentEditTextView?.typeface = binding.edtChangeText.typeface
+        currentEditTextView?.setTextColor(binding.edtChangeText.textColors)
+        currentEditTextView?.textSize = binding.edtChangeText.textSize / 2
     }
 }
 
@@ -97,6 +116,17 @@ fun AddTextFluidActivity.onDoneEvent() {
             saveBitmapToFile(bitmap, System.currentTimeMillis().toString())
 //        commonViewModel.currentAddedTextFilePath = filePath
         backEvent()
+
+        Constant.textViewList.clear()
+        for (i in 0 until binding.flContainer.childCount) {
+            val view = binding.flContainer.getChildAt(i)
+            if (view is TextView) {
+                Log.d("sagagwagwgwa", "x la: ${view.x}")
+                Log.d("sagagwagwgwa", "y la: ${view.y}")
+                Constant.textViewList.add(view)
+            }
+        }
+        //Lay tat ca textview o trong flcontainer
         Log.d("asgagwagwgagwa", "onDoneEvent: $filePath")
     }
 }
@@ -126,14 +156,16 @@ fun AddTextFluidActivity.createNextTextView(): TextView {
                 binding.sbFontSize.progress = (currentEditTextView!!.textSize / 2).toInt()
 
                 binding.edtChangeText.setText(currentEditTextView!!.text)
+                binding.edtChangeText.setTextColor(currentEditTextView!!.textColors)
+                binding.edtChangeText.typeface = currentEditTextView!!.typeface
             },
             onDragStart = {
                 binding.llDeleteText.isVisible = true
-                binding.llAddText.isVisible = false
+                binding.llAddText.isInvisible = true
             },
             onDragEnd = {
                 binding.llDeleteText.isVisible = false
-                binding.llAddText.isVisible = true
+                binding.llAddText.isInvisible = false
             },
 
             )
@@ -157,7 +189,7 @@ fun AddTextFluidActivity.setUpAdapter() {
     binding.rvColor.adapter = colorAdapter
     colorAdapter.setListener(object : ColorAdapter.Listener {
         override fun onItemClick(item: String) {
-            currentEditTextView?.setTextColor(Color.parseColor(item))
+            binding.edtChangeText.setTextColor(Color.parseColor(item))
         }
     })
 
@@ -170,7 +202,7 @@ fun AddTextFluidActivity.setUpAdapter() {
     fontFamilyAdapter.setListener(object : FontFamilyAdapter.Listener {
         override fun onItemClick(item: Int) {
             val typeface = ResourcesCompat.getFont(binding.root.context, item)
-            currentEditTextView?.typeface = typeface
+            binding.edtChangeText.typeface = typeface
         }
     })
 }
@@ -182,4 +214,17 @@ fun AddTextFluidActivity.initView() {
         KeyboardVisibilityEventListener { isShowKeyboard ->
             binding.clInfoText.isVisible = !isShowKeyboard
         })
+
+    binding.surfaceView.post {
+        adjustSurfaceViewSizeWithActionBar(activity = this, view = binding.cvMain)
+    }
+
+    binding.flContainer.removeAllViews()
+    binding.flContainer.post {
+        for (item in Constant.textViewList) {
+            val parent = item.parent as? ViewGroup
+            parent?.removeView(item)
+            binding.flContainer.addView(item)
+        }
+    }
 }

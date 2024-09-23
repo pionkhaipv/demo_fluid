@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:layout_marginHorizontal="@dimen/_20dp"
+            android:background="@drawable/bg_radius_10"
+            android:backgroundTint="#191A19"
+            android:paddingVertical="@dimen/_24dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingStart="@dimen/_33dp"
+                android:paddingEnd="@dimen/_67dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font_700"
+                    android:text="@string/_1_about"
+                    android:textColor="#FFD656"
+                    android:textSize="@dimen/_16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font_700"
+                    android:textColor="#304574"
+                    android:textSize="@dimen/_16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font_400"
+                    android:text="@string/for_a_better_experience_we_provide_enhanced_versions_or_remove_ads"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font_700"
+                    android:textColor="#304574"
+
+                    android:textSize="@dimen/_16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font_700"
+                    android:text="@string/_2_how_to_buy"
+                    android:textColor="#FFD656"
+                    android:textSize="@dimen/_16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font_700"
+                    android:textColor="#304574"
+
+                    android:textSize="@dimen/_16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font_400"
+                    android:text="@string/select_remove_ad_icon_and_press_buy_we_will_accept_your_payment_through_google_pay_system"
+                    android:textColor="@color/white"
+
+                    android:textSize="@dimen/_16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font_700"
+                    android:textColor="#304574"
+
+                    android:textSize="@dimen/_16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font_700"
+                    android:text="@string/_3_how_to_refund"
+                    android:textColor="#FFD656"
+                    android:textSize="@dimen/_16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font_700"
+                    android:textColor="#304574"
+
+                    android:textSize="@dimen/_16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font_400"
+                    android:text="@string/step_refund"
+                    android:textColor="@color/white"
+
+                    android:textSize="@dimen/_16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font_700"
+                    android:textColor="#304574"
+
+                    android:textSize="@dimen/_16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font_700"
+                    android:text="@string/_4_cases_of_refund_acceptance"
+                    android:textColor="#FFD656"
+                    android:textSize="@dimen/_16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font_700"
+                    android:textColor="#304574"
+
+                    android:textSize="@dimen/_16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font_400"
+                    android:text="@string/case_of_refund"
+                    android:textColor="@color/white"
+
+                    android:textSize="@dimen/_16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font_700"
+                    android:textColor="#304574"
+                    android:textSize="@dimen/_16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font_700"
+                    android:text="@string/note"
+                    android:textColor="#CE2424"
+                    android:textSize="@dimen/_16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font_700"
+                    android:textColor="#CE2424"
+                    android:textSize="@dimen/_16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font_400"
+                    android:text="@string/setting_note_content"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_16sp" />
+            </LinearLayout>
+
+        </ScrollView>
+
+    </FrameLayout>
+</layout>

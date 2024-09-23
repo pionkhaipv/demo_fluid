@@ -1,5 +1,6 @@
 package com.demo.fluid.framework.presentation.common
 
+import android.widget.TextView
 import dagger.hilt.android.lifecycle.HiltViewModel
 import pion.tech.fluid_wallpaper.framework.presentation.common.BaseViewModel
 import javax.inject.Inject
@@ -7,4 +8,5 @@ import javax.inject.Inject
 @HiltViewModel
 class CommonViewModel @Inject constructor() : BaseViewModel() {
     var currentAddedTextFilePath :String? = null
+
 }

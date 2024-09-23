@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_marginHorizontal="@dimen/_20dp"
+            android:layout_width="match_parent"
+            android:background="@drawable/bg_radius_10"
+            android:backgroundTint="#191A19"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingVertical="@dimen/_24dp"
+            android:paddingStart="@dimen/_33dp"
+            android:paddingEnd="@dimen/_67dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font_700"
+                    android:text="@string/store_name"
+                    android:textColor="#FFD656"
+                    android:textSize="@dimen/_16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font_700"
+                    android:text=" "
+                    android:textColor="#0D63E3"
+                    android:textSize="@dimen/_16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font_400"
+                    android:text="@string/pion_tech"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font_700"
+                    android:text="@string/website"
+                    android:textColor="#FFD656"
+                    android:textSize="@dimen/_16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font_700"
+                    android:text=" "
+                    android:textColor="#28ABF5"
+                    android:textSize="@dimen/_16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font_400"
+                    android:text="@string/https_piontech_co"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_16sp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/font_700"
+                android:text="@string/facebook"
+                android:textColor="#FFD656"
+                android:textSize="@dimen/_16sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font_700"
+                    android:text="@string/telegram"
+                    android:textColor="#FFD656"
+                    android:textSize="@dimen/_16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font_400"
+                    android:text="@string/piontechglobal"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_16sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </FrameLayout>
+</layout>

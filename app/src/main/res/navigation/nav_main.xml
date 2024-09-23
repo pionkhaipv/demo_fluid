@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_homeFragment_to_listFluidFragment"
             app:destination="@id/listFluidFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_settingFragment"
+            app:destination="@id/settingFragment" />
     </fragment>
     <fragment
         android:id="@+id/splashFragment"
@@ -27,6 +30,12 @@
         android:label="SplashFragment" >
         <action
             android:id="@+id/action_splashFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_splashFragment_to_languageFragment"
+            app:destination="@id/languageFragment" />
+        <action
+            android:id="@+id/action_splashFragment_to_homeFragment2"
             app:destination="@id/homeFragment" />
     </fragment>
     <fragment
@@ -57,22 +66,35 @@
         tools:layout="@layout/fragment_edit_fluid"
         android:name="com.demo.fluid.framework.presentation.edit_fluid.EditFluidFragment"
         android:label="EditFluidFragment" >
-        <action
-            android:id="@+id/action_editFluidFragment_to_addTextFluidFragment"
-            app:destination="@id/addTextFluidFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/addTextFluidFragment"
-        tools:layout="@layout/fragment_add_text_fluid"
-        android:name="com.demo.fluid.framework.presentation.addTextFluid.AddTextFluidFragment"
-        android:label="AddTextFluidFragment" >
-        <action
-            android:id="@+id/action_addTextFluidFragment_to_editFluidFragment"
-            app:destination="@id/editFluidFragment" />
-    </fragment>
+
     <fragment
         android:id="@+id/previewTransparentFragment"
         tools:layout="@layout/fragment_preview_transparent"
         android:name="com.demo.fluid.framework.presentation.previewTransparent.PreviewTransparentFragment"
         android:label="PreviewTransparentFragment" />
+    <fragment
+        android:id="@+id/settingFragment"
+        tools:layout="@layout/fragment_setting"
+        android:name="com.demo.fluid.framework.presentation.setting.SettingFragment"
+        android:label="SettingFragment" >
+        <action
+            android:id="@+id/action_settingFragment_to_languageFragment"
+            app:destination="@id/languageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/languageFragment"
+        tools:layout="@layout/fragment_language"
+        android:name="com.demo.fluid.framework.presentation.language.LanguageFragment"
+        android:label="LanguageFragment" >
+    </fragment>
+
+    <action
+        android:id="@+id/action_to_homeFragment"
+        app:destination="@id/homeFragment" />
+    <fragment
+        android:id="@+id/onboardingFragment"
+        tools:layout="@layout/fragment_onboarding"
+        android:name="com.demo.fluid.framework.presentation.onboarding.OnboardingFragment"
+        android:label="OnboardingFragment" />
 </navigation>

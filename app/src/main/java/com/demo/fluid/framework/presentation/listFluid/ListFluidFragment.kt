@@ -9,6 +9,7 @@ import com.demo.fluid.framework.presentation.common.BaseFragment
 import com.demo.fluid.framework.presentation.listFluid.adapter.FluidAdapter
 import com.demo.fluid.framework.presentation.model.HomeModel
 import com.demo.fluid.util.BundleKey
+import com.demo.fluid.util.Constant
 
 @AndroidEntryPoint
 class ListFluidFragment : BaseFragment<FragmentListFluidBinding, ListFluidViewModel>(
@@ -18,11 +19,11 @@ class ListFluidFragment : BaseFragment<FragmentListFluidBinding, ListFluidViewMo
 
     val adapter = FluidAdapter()
     override fun init(view: View) {
+        Constant.textViewList.clear()
         initView()
         onBackEvent()
         viewModel.initData()
         setUpAdapter()
-
     }
 
     override fun subscribeObserver(view: View) {

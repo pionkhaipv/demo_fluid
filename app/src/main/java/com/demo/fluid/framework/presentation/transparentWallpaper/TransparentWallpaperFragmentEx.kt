@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.widget.FrameLayout
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.demo.fluid.R
 import com.demo.fluid.framework.presentation.transparentWallpaper.dialog.UnlockTransparentDialog
@@ -49,7 +50,10 @@ fun TransparentWallpaperFragment.initView() {
                 dialog.setListener(listener = object : UnlockTransparentDialog.Listener {
                     override fun onWatchAdsClick() {
                         isAlreadyUnlock = true
-                        safeNav(R.id.transparentWallpaperFragment,R.id.action_transparentWallpaperFragment_to_previewTransparentFragment)
+                        safeNav(
+                            R.id.transparentWallpaperFragment,
+                            R.id.action_transparentWallpaperFragment_to_previewTransparentFragment
+                        )
                     }
 
                     override fun onBuyVipVersion() {
@@ -57,10 +61,17 @@ fun TransparentWallpaperFragment.initView() {
                 })
                 dialog.show(childFragmentManager)
             } else {
-                safeNav(R.id.transparentWallpaperFragment,R.id.action_transparentWallpaperFragment_to_previewTransparentFragment)
+                safeNav(
+                    R.id.transparentWallpaperFragment,
+                    R.id.action_transparentWallpaperFragment_to_previewTransparentFragment
+                )
             }
         }
+
+        binding.viewBlur.isVisible = !binding.sbWallpaper.isChecked
     }
+    binding.viewBlur.isVisible = !binding.sbWallpaper.isChecked
+
 }
 
 fun TransparentWallpaperFragment.isWallpaperSet(): Boolean {

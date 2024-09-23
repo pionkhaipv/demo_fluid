@@ -54,7 +54,6 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:visibility="gone"
             android:id="@+id/tv_apply"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
@@ -65,108 +64,36 @@
             android:text="@string/apply"
             android:textColor="#FF9900"
             android:textSize="@dimen/_18sp"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <LinearLayout
-        android:id="@+id/ll_bottom_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_radius_top_14"
-        android:backgroundTint="#262626"
-        android:paddingVertical="@dimen/_10dp"
-        app:layout_constraintBottom_toTopOf="@id/layoutAds">
-
-        <LinearLayout
-            android:id="@+id/btn_set_wallpaper"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="@dimen/_32dp"
-                android:layout_height="@dimen/_32dp"
-                android:layout_marginBottom="@dimen/_2dp"
-                android:src="@drawable/ic_set_wallpaper" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/font_400"
-                android:gravity="center"
-                android:text="@string/set_wallpaper"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_12sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/btn_onscreen"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="@dimen/_32dp"
-                android:layout_height="@dimen/_32dp"
-                android:layout_marginBottom="@dimen/_2dp"
-                android:src="@drawable/ic_on_screen" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/font_400"
-                android:gravity="center"
-                android:text="@string/onscreen"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_12sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/btn_add_text"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="@dimen/_32dp"
-                android:layout_height="@dimen/_32dp"
-                android:layout_marginBottom="@dimen/_2dp"
-                android:src="@drawable/ic_set_wallpaper" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/font_400"
-                android:gravity="center"
-                android:text="@string/add_text"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_12sp" />
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <com.demo.fluid.util.gl.MyGLSurfaceView
-        android:id="@+id/surface_view"
-        android:layout_width="match_parent"
+    <com.tistory.zladnrms.roundablelayout.RoundableLayout
+        android:id="@+id/cv_main"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/layoutAds"
-        app:layout_constraintTop_toBottomOf="@id/toolbar" />
+        android:layout_marginVertical="@dimen/_20dp"
+        android:visibility="visible"
+        app:cornerAll="@dimen/_14dp"
+        app:backgroundColor="@android:color/transparent"
+        app:layout_constraintBottom_toTopOf="@id/fl_add_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+        <com.demo.fluid.util.gl.MyGLSurfaceView
+            android:id="@+id/surface_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </com.tistory.zladnrms.roundablelayout.RoundableLayout>
 
     <FrameLayout
         android:id="@+id/fl_add_text"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/_82dp"
         android:background="@drawable/bg_add_text_gradient"
-        android:paddingTop="@dimen/_28dp"
-        android:paddingBottom="@dimen/_20dp"
         app:layout_constraintBottom_toTopOf="@id/layoutAds">
 
         <LinearLayout
@@ -174,7 +101,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:visibility="visible"
             android:gravity="center">
 
             <ImageView
@@ -196,12 +122,12 @@
         </LinearLayout>
 
         <LinearLayout
-            android:visibility="gone"
             android:id="@+id/ll_delete_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:gravity="center">
+            android:gravity="center"
+            android:visibility="gone">
 
             <ImageView
                 android:id="@+id/iv_delete_text"
@@ -223,31 +149,36 @@
 
     <FrameLayout
         android:id="@+id/fl_container"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="@id/surface_view"
-        app:layout_constraintTop_toTopOf="@id/surface_view" />
+        app:layout_constraintBottom_toBottomOf="@id/fl_add_text"
+        app:layout_constraintEnd_toEndOf="@id/cv_main"
+        app:layout_constraintStart_toStartOf="@id/cv_main"
+        app:layout_constraintTop_toTopOf="@id/cv_main" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_edit_text"
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="#B2000000"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@id/layoutAds"
         app:layout_constraintTop_toBottomOf="@id/toolbar">
 
         <EditText
             android:id="@+id/edt_change_text"
+            android:maxLength="50"
+            android:inputType="textNoSuggestions"
             android:layout_width="match_parent"
+            android:layout_marginHorizontal="@dimen/_20dp"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:gravity="center"
-            android:paddingVertical="@dimen/_20dp"
             android:hint="TYPE HERE"
-            android:textSize="@dimen/_18sp"
-            android:textColorHint="#9C9C9C"
+            android:paddingVertical="@dimen/_20dp"
             android:textColor="@color/white"
+            android:textColorHint="#9C9C9C"
+            android:textSize="@dimen/_18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -284,12 +215,12 @@
 
             <SeekBar
                 android:id="@+id/sb_font_size"
-                android:thumb="@drawable/custom_thumb"
-                android:layout_marginBottom="@dimen/_13dp"
-                android:layout_marginTop="@dimen/_7dp"
-                android:layout_marginHorizontal="@dimen/_12dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_12dp"
+                android:layout_marginTop="@dimen/_7dp"
+                android:layout_marginBottom="@dimen/_13dp"
+                android:thumb="@drawable/custom_thumb" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

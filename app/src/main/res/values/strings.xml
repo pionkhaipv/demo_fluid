@@ -223,6 +223,52 @@
     <string name="or">Or</string>
     <string name="buy_vip_version">Buy VIP version</string>
     <string name="delete">Delete</string>
-
+    <string name="choose_language">Choose language</string>
+    <string name="setting">Setting</string>
+    <string name="general_setting">General setting</string>
+    <string name="help">Help</string>
+    <string name="feedback_to_email">Feedback to email</string>
+    <string name="developer">Developer</string>
+    <string name="adverstisement">Advertisement</string>
+    <string name="purchase_manager">Purchase manager</string>
+    <string name="information_about">Information about</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="term_and_conditions">Term and conditions</string>
+    <string name="application_version_v">Application version: v</string>
+    <string name="pion_tech">Pion Tech</string>
+    <string name="why_do_you_see_ads">Why do you see Ads?</string>
+    <string name="for_production_and_development_we_need_funding_one_of_which_comes_from_advertisment_revenue">For production and development, we need funding, one of which comes from advertisment revenue</string>
+    <string name="what_can_you_do">What can you do?</string>
+    <string name="ads_what_can_you_do_content">1. To remove ads, you can support us by purchasing the premium version or the ad-removed version.\n\n2. Contact us by email to be considered for participation in the pilot program, from which you can use versions with less ads but may not be optimized for performance.</string>
+    <string name="what_ads_type_do_we_use">What Ads type do we use?</string>
+    <string name="type_ads_title">We are associated with many ad network partners and the largest is Google Ad for major ad formats\n\n- Full screen ads interspersed between screens\n- Banner, native ads are customized as a component of AD (usually with a yellow label)</string>
+    <string name="we_are_always_trying_to_balance_the_user_experience_and_advertisment">We are always trying to balance the user experience and advertisment</string>
+    <string name="store_name">Store Name:</string>
+    <string name="website">Website:</string>
+    <string name="https_piontech_co">https://piontech.co</string>
+    <string name="facebook">Facebook:</string>
+    <string name="telegram">Telegram:</string>
+    <string name="piontechglobal">" @piontechglobal"</string>
+    <string name="setting_note_content">- You can completely use the core features of the application without paying any fees \n- If you clear the data of the application, the ad may appear again once when relaunching the application.</string>
+    <string name="camera">CAMERA</string>
+    <string name="changing_language">Changing language...</string>
+    <string name="this_action_may_take_a_few_seconds">This action may take a few seconds</string>
+    <string name="admob_app_id" translatable="false">ca-app-pub-2222869408518511~2127343260</string>
+    <string name="permission">Permission</string>
+    <string name="your_feedback_is_useful">Your feedback is useful</string>
+    <string name="others">Others</string>
+    <string name="submit">Submit</string>
+    <string name="_1_about">1. About</string>
+    <string name="for_a_better_experience_we_provide_enhanced_versions_or_remove_ads">For a better experience, we provide enhanced versions or remove ads.</string>
+    <string name="_2_how_to_buy">2.How to buy?</string>
+    <string name="case_of_refund">- The application does not work as described \n- Application crashes after payment \n- The app still shows ads after successful payment</string>
+    <string name="step_refund">Step1: Contact us via email "piontech.feedback@gmail.com" with title "About refund Issue" \n\nStep2: provide us with the e-invoice, which will have the ID "GPA.33..." in the email you used to pay with google pay\n\nStep3: We will check the problems you have, if it is in the "refund approved cases", we will process it in about 3-5 working days depending on the actual conditions.\n\nThe amount after refund will be processed by google\'s system and transferred back to your e-wallet.</string>
+    <string name="_3_how_to_refund">3. How to refund?</string>
+    <string name="_4_cases_of_refund_acceptance">4. Cases of Refund Acceptance</string>
+    <string name="select_remove_ad_icon_and_press_buy_we_will_accept_your_payment_through_google_pay_system">Select remove ad icon and press buy, we will accept your payment through google pay system</string>
+    <string name="note">Note:</string>
+    <string name="the_transparent_wallpaper_feature_is_not_working">The transparent wallpaper feature is not working</string>
+    <string name="the_fluid_wallpaper_feature_is_also_not_working">The fluid wallpaper feature is also not working</string>
+    <string name="to_use_transparent_wallpaper_feature">To use transparent wallpaper feature</string>
 
 </resources>

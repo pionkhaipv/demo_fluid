@@ -1,18 +1,15 @@
 package com.demo.fluid.framework.presentation.onScreenFluid
 
-import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.WindowManager
-import androidx.activity.addCallback
-import com.demo.fluid.R
-import com.demo.fluid.util.BundleKey
 import com.demo.fluid.util.gl.GLES20Renderer
 import com.demo.fluid.util.gl.OrientationSensor
 import com.demo.fluid.util.gl.SettingsStorage
 import com.demo.fluid.util.setPreventDoubleClickScaleView
 import com.demo.fluid.util.simulateSwipe
 import com.magicfluids.Config
+import kotlin.math.abs
 import kotlin.random.Random
 
 fun OnScreenActivity.initView() {
@@ -61,14 +58,14 @@ fun OnScreenActivity.randomSwipe() {
             do {
                 startX = Random.nextFloat() * 300 // Adjust the range as needed
                 startY = Random.nextFloat() * 300 // Adjust the range as needed
-                endX = Random.nextFloat() * 300 // Adjust the range as needed
-                endY = Random.nextFloat() * 300 // Adjust the range as needed
-            } while (Math.abs(endX - startX) < 100 || Math.abs(endY - startY) < 100) // Ensure points are far apart
+                endX = Random.nextFloat() * 500 // Adjust the range as needed
+                endY = Random.nextFloat() * 500 // Adjust the range as needed
+            } while (abs(endX - startX) < 100 || abs(endY - startY) < 100) // Ensure points are far apart
 
             simulateSwipe(xStart = startX, yStart = startY, xEnd = endX, yEnd = endY)
 
             // Schedule the next swipe after 1 second
-            randomHandler!!.postDelayed(this, 200)
+            randomHandler!!.postDelayed(this, 500)
         }
     }
 

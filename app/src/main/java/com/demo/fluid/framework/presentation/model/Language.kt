@@ -1,0 +1,180 @@
+package com.demo.fluid.framework.presentation.model
+
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+//Language for translate feature
+
+@Parcelize
+data class Language(
+    val name: String,
+    val code: String,
+    val thumbnail: String? = "",
+    var isSelected: Boolean = false
+) : Parcelable
+
+    fun getThumbnailUrlByLanguageCode(code:String): String? {
+        val languageItem = languages.find { code == it.code }
+        return languageItem?.thumbnail
+    }
+
+val languages = listOf(
+    Language(name = "Arabic", code = "ar", thumbnail = "https://flagcdn.com/w320/sa.png"),
+    Language(name = "Albanian", code = "sq", thumbnail = "https://flagcdn.com/w320/al.png"),
+    Language(name = "Amharic", code = "am", thumbnail = "https://flagcdn.com/w320/et.png"),
+    Language(name = "English", code = "en", thumbnail = "https://flagcdn.com/w320/us.png"),
+    Language(name = "Armenian", code = "hy", thumbnail = "https://flagcdn.com/w320/am.png"),
+    Language(name = "Assamese", code = "as", thumbnail = "https://flagcdn.com/w320/in.png"),
+    Language(name = "Aymara", code = "ay", thumbnail = "https://flagcdn.com/w320/bo.png"),
+    Language(name = "Azerbaijani", code = "az", thumbnail = "https://flagcdn.com/w320/az.png"),
+    Language(name = "Polish", code = "pl", thumbnail = "https://flagcdn.com/w320/pl.png"),
+    Language(name = "Persian", code = "fa", thumbnail = "https://flagcdn.com/w320/ir.png"),
+    Language(name = "Bambara", code = "bm", thumbnail = "https://flagcdn.com/w320/ml.png"),
+    Language(name = "Bantu", code = "bnt", thumbnail = "https://flagcdn.com/w320/za.png"),
+    Language(name = "Basque", code = "eu", thumbnail = "https://flagcdn.com/w320/es.png"),
+    Language(name = "Belarusian", code = "be", thumbnail = "https://flagcdn.com/w320/by.png"),
+    Language(name = "Bengali", code = "bn", thumbnail = "https://flagcdn.com/w320/bd.png"),
+    Language(name = "Bhojpuri", code = "bho", thumbnail = "https://flagcdn.com/w320/in.png"),
+    Language(name = "Bosnian", code = "bs", thumbnail = "https://flagcdn.com/w320/ba.png"),
+    Language(name = "Portuguese", code = "pt", thumbnail = "https://flagcdn.com/w320/pt.png"),
+    Language(name = "Bulgarian", code = "bg", thumbnail = "https://flagcdn.com/w320/bg.png"),
+    Language(name = "Catalan", code = "ca", thumbnail = "https://flagcdn.com/w320/es.png"),
+    Language(name = "Cebuano", code = "ceb", thumbnail = "https://flagcdn.com/w320/ph.png"),
+    Language(name = "Chichewa", code = "ny", thumbnail = "https://flagcdn.com/w320/mw.png"),
+    Language(name = "Corsican", code = "co", thumbnail = "https://flagcdn.com/w320/fr.png"),
+    Language(name = "Haitian Creole", code = "ht", thumbnail = "https://flagcdn.com/w320/ht.png"),
+    Language(name = "Croatian", code = "hr", thumbnail = "https://flagcdn.com/w320/hr.png"),
+    Language(name = "Dhivehi", code = "dv", thumbnail = "https://flagcdn.com/w320/mv.png"),
+    Language(name = "Hebrew", code = "he", thumbnail = "https://flagcdn.com/w320/il.png"),
+    Language(name = "Dogri", code = "doi", thumbnail = "https://flagcdn.com/w320/in.png"),
+    Language(name = "Danish", code = "da", thumbnail = "https://flagcdn.com/w320/dk.png"),
+    Language(name = "German", code = "de", thumbnail = "https://flagcdn.com/w320/de.png"),
+    Language(name = "Estonian", code = "et", thumbnail = "https://flagcdn.com/w320/ee.png"),
+    Language(name = "Ewe", code = "ee", thumbnail = "https://flagcdn.com/w320/tg.png"),
+    Language(name = "Filipino", code = "tl", thumbnail = "https://flagcdn.com/w320/ph.png"),
+    Language(name = "Frisian", code = "fy", thumbnail = "https://flagcdn.com/w320/nl.png"),
+    Language(name = "Scottish Gaelic", code = "gd", thumbnail = "https://flagcdn.com/w320/gb.png"),
+    Language(name = "Galician", code = "gl", thumbnail = "https://flagcdn.com/w320/es.png"),
+    Language(name = "Georgian", code = "ka", thumbnail = "https://flagcdn.com/w320/ge.png"),
+    Language(name = "Guarani", code = "gn", thumbnail = "https://flagcdn.com/w320/py.png"),
+    Language(name = "Gujarati", code = "gu", thumbnail = "https://flagcdn.com/w320/in.png"),
+    Language(name = "Dutch", code = "nl", thumbnail = "https://flagcdn.com/w320/nl.png"),
+    Language(name = "Afrikaans", code = "af", thumbnail = "https://flagcdn.com/w320/za.png"),
+    Language(name = "Korean", code = "ko", thumbnail = "https://flagcdn.com/w320/kr.png"),
+    Language(name = "Hausa", code = "ha", thumbnail = "https://flagcdn.com/w320/ng.png"),
+    Language(name = "Hawaiian", code = "haw", thumbnail = "https://flagcdn.com/w320/us.png"),
+    Language(name = "Hindi", code = "hi", thumbnail = "https://flagcdn.com/w320/in.png"),
+    Language(name = "Hmong", code = "hmn", thumbnail = "https://flagcdn.com/w320/us.png"),
+    Language(name = "Hungarian", code = "hu", thumbnail = "https://flagcdn.com/w320/hu.png"),
+    Language(name = "Greek", code = "el", thumbnail = "https://flagcdn.com/w320/gr.png"),
+    Language(name = "Icelandic", code = "is", thumbnail = "https://flagcdn.com/w320/is.png"),
+    Language(name = "Igbo", code = "ig", thumbnail = "https://flagcdn.com/w320/ng.png"),
+    Language(name = "Ilocano", code = "ilo", thumbnail = "https://flagcdn.com/w320/ph.png"),
+    Language(name = "Indonesian", code = "id", thumbnail = "https://flagcdn.com/w320/id.png"),
+    Language(name = "Irish", code = "ga", thumbnail = "https://flagcdn.com/w320/ie.png"),
+    Language(name = "Javanese", code = "jv", thumbnail = "https://flagcdn.com/w320/id.png"),
+    Language(name = "Kannada", code = "kn", thumbnail = "https://flagcdn.com/w320/in.png"),
+    Language(name = "Kazakh", code = "kk", thumbnail = "https://flagcdn.com/w320/kz.png"),
+    Language(name = "Khmer", code = "km", thumbnail = "https://flagcdn.com/w320/kh.png"),
+    Language(name = "Kinyarwanda", code = "rw", thumbnail = "https://flagcdn.com/w320/rw.png"),
+    Language(name = "Konkani", code = "kok", thumbnail = "https://flagcdn.com/w320/in.png"),
+    Language(name = "Krio", code = "kri", thumbnail = "https://flagcdn.com/w320/sl.png"),
+    Language(
+        name = "Kurdish (Kurmanji)",
+        code = "ku",
+        thumbnail = "https://flagcdn.com/w320/tr.png"
+    ),
+    Language(
+        name = "Kurdish (Sorani)",
+        code = "ckb",
+        thumbnail = "https://flagcdn.com/w320/iq.png"
+    ),
+    Language(name = "Kyrgyz", code = "ky", thumbnail = "https://flagcdn.com/w320/kg.png"),
+    Language(name = "Lao", code = "lo", thumbnail = "https://flagcdn.com/w320/la.png"),
+    Language(name = "Latin", code = "la", thumbnail = "https://flagcdn.com/w320/va.png"),
+    Language(name = "Latvian", code = "lv", thumbnail = "https://flagcdn.com/w320/lv.png"),
+    Language(name = "Lingala", code = "ln", thumbnail = "https://flagcdn.com/w320/cd.png"),
+    Language(name = "Lithuanian", code = "lt", thumbnail = "https://flagcdn.com/w320/lt.png"),
+    Language(name = "Luganda", code = "lg", thumbnail = "https://flagcdn.com/w320/ug.png"),
+    Language(name = "Luxembourgish", code = "lb", thumbnail = "https://flagcdn.com/w320/lu.png"),
+    Language(name = "Malay", code = "ms", thumbnail = "https://flagcdn.com/w320/my.png"),
+    Language(name = "Macedonian", code = "mk", thumbnail = "https://flagcdn.com/w320/mk.png"),
+    Language(name = "Maithili", code = "mai", thumbnail = "https://flagcdn.com/w320/in.png"),
+    Language(name = "Malagasy", code = "mg", thumbnail = "https://flagcdn.com/w320/mg.png"),
+    Language(name = "Malayalam", code = "ml", thumbnail = "https://flagcdn.com/w320/in.png"),
+    Language(name = "Maltese", code = "mt", thumbnail = "https://flagcdn.com/w320/mt.png"),
+    Language(name = "Maori", code = "mi", thumbnail = "https://flagcdn.com/w320/nz.png"),
+    Language(name = "Marathi", code = "mr", thumbnail = "https://flagcdn.com/w320/in.png"),
+    Language(
+        name = "Meiteilon (Manipuri)",
+        code = "mni-Mtei",
+        thumbnail = "https://flagcdn.com/w320/in.png"
+    ),
+    Language(name = "Mizo", code = "lus", thumbnail = "https://flagcdn.com/w320/in.png"),
+    Language(name = "Mongolian", code = "mn", thumbnail = "https://flagcdn.com/w320/mn.png"),
+    Language(name = "Burmese", code = "my", thumbnail = "https://flagcdn.com/w320/mm.png"),
+    Language(name = "Norwegian", code = "no", thumbnail = "https://flagcdn.com/w320/no.png"),
+    Language(name = "Nepali", code = "ne", thumbnail = "https://flagcdn.com/w320/np.png"),
+    Language(name = "Russian", code = "ru", thumbnail = "https://flagcdn.com/w320/ru.png"),
+    Language(name = "Japanese", code = "ja", thumbnail = "https://flagcdn.com/w320/jp.png"),
+    Language(name = "Odia (Oriya)", code = "or", thumbnail = "https://flagcdn.com/w320/in.png"),
+    Language(name = "Oromo", code = "om", thumbnail = "https://flagcdn.com/w320/et.png"),
+    Language(name = "Pashto", code = "ps", thumbnail = "https://flagcdn.com/w320/af.png"),
+    Language(name = "Sanskrit", code = "sa", thumbnail = "https://flagcdn.com/w320/in.png"),
+    Language(name = "French", code = "fr", thumbnail = "https://flagcdn.com/w320/fr.png"),
+    Language(name = "Finnish", code = "fi", thumbnail = "https://flagcdn.com/w320/fi.png"),
+    Language(name = "Punjabi", code = "pa", thumbnail = "https://flagcdn.com/w320/in.png"),
+    Language(name = "Quechua", code = "qu", thumbnail = "https://flagcdn.com/w320/bo.png"),
+    Language(name = "Esperanto", code = "eo", thumbnail = "https://flagcdn.com/w320/qm.png"),
+    Language(name = "Romanian", code = "ro", thumbnail = "https://flagcdn.com/w320/ro.png"),
+    Language(name = "Samoan", code = "sm", thumbnail = "https://flagcdn.com/w320/ws.png"),
+    Language(name = "Czech", code = "cs", thumbnail = "https://flagcdn.com/w320/cz.png"),
+    Language(name = "Sepedi", code = "nso", thumbnail = "https://flagcdn.com/w320/za.png"),
+    Language(name = "Serbian", code = "sr", thumbnail = "https://flagcdn.com/w320/rs.png"),
+    Language(name = "Sesotho", code = "st", thumbnail = "https://flagcdn.com/w320/ls.png"),
+    Language(name = "Shona", code = "sn", thumbnail = "https://flagcdn.com/w320/zw.png"),
+    Language(name = "Sindhi", code = "sd", thumbnail = "https://flagcdn.com/w320/pk.png"),
+    Language(name = "Sinhala", code = "si", thumbnail = "https://flagcdn.com/w320/lk.png"),
+    Language(name = "Slovak", code = "sk", thumbnail = "https://flagcdn.com/w320/sk.png"),
+    Language(name = "Slovenian", code = "sl", thumbnail = "https://flagcdn.com/w320/si.png"),
+    Language(name = "Somali", code = "so", thumbnail = "https://flagcdn.com/w320/so.png"),
+    Language(name = "Sundanese", code = "su", thumbnail = "https://flagcdn.com/w320/id.png"),
+    Language(name = "Swahili", code = "sw", thumbnail = "https://flagcdn.com/w320/tz.png"),
+    Language(name = "Tajik", code = "tg", thumbnail = "https://flagcdn.com/w320/tj.png"),
+    Language(name = "Tamil", code = "ta", thumbnail = "https://flagcdn.com/w320/in.png"),
+    Language(name = "Tatar", code = "tt", thumbnail = "https://flagcdn.com/w320/ru.png"),
+    Language(name = "Spanish", code = "es", thumbnail = "https://flagcdn.com/w320/es.png"),
+    Language(name = "Telugu", code = "te", thumbnail = "https://flagcdn.com/w320/in.png"),
+    Language(name = "Thai", code = "th", thumbnail = "https://flagcdn.com/w320/th.png"),
+    Language(name = "Turkish", code = "tr", thumbnail = "https://flagcdn.com/w320/tr.png"),
+    Language(name = "Swedish", code = "sv", thumbnail = "https://flagcdn.com/w320/se.png"),
+    Language(name = "Tigrinya", code = "ti", thumbnail = "https://flagcdn.com/w320/er.png"),
+    Language(
+        name = "Simplified Chinese",
+        code = "zh",
+        thumbnail = "https://flagcdn.com/w320/cn.png"
+    ),
+    Language(
+        name = "Traditional Chinese",
+        code = "zh-TW",
+        thumbnail = "https://flagcdn.com/w320/tw.png"
+    ),
+    Language(name = "Tsonga", code = "ts", thumbnail = "https://flagcdn.com/w320/za.png"),
+    Language(name = "Turkmen", code = "tk", thumbnail = "https://flagcdn.com/w320/tm.png"),
+    Language(name = "Twi", code = "tw", thumbnail = "https://flagcdn.com/w320/gh.png"),
+    Language(name = "Ukrainian", code = "uk", thumbnail = "https://flagcdn.com/w320/ua.png"),
+    Language(name = "Urdu", code = "ur", thumbnail = "https://flagcdn.com/w320/pk.png"),
+    Language(name = "Uyghur", code = "ug", thumbnail = "https://flagcdn.com/w320/cn.png"),
+    Language(name = "Uzbek", code = "uz", thumbnail = "https://flagcdn.com/w320/uz.png"),
+    Language(name = "Vietnamese", code = "vi", thumbnail = "https://flagcdn.com/w320/vn.png"),
+    Language(name = "Welsh", code = "cy", thumbnail = "https://flagcdn.com/w320/gb.png"),
+    Language(name = "Italian", code = "it", thumbnail = "https://flagcdn.com/w320/it.png"),
+    Language(name = "Yiddish", code = "yi", thumbnail = "https://flagcdn.com/w320/il.png"),
+    Language(name = "Yoruba", code = "yo", thumbnail = "https://flagcdn.com/w320/ng.png"),
+    Language(name = "Zulu", code = "zu", thumbnail = "https://flagcdn.com/w320/za.png")
+)
+
+val defaultInputLanguage = languages[3]
+val defaultOutputLanguage = languages[127]
+
+
+

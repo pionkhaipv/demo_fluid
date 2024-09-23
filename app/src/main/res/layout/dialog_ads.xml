@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_radius_10"
+        android:backgroundTint="#191A19"
+        android:orientation="vertical">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:paddingVertical="@dimen/_24dp"
+            android:layout_height="500dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingStart="@dimen/_33dp"
+                android:paddingEnd="@dimen/_67dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font_700"
+                    android:text="@string/why_do_you_see_ads"
+                    android:textColor="#FFD656"
+                    android:textSize="@dimen/_16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font_700"
+                    android:textColor="#304574"
+                    android:textSize="@dimen/_16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font_400"
+                    android:text="@string/for_production_and_development_we_need_funding_one_of_which_comes_from_advertisment_revenue"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font_700"
+                    android:textColor="#304574"
+                    android:textSize="@dimen/_16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font_700"
+                    android:text="@string/what_can_you_do"
+                    android:textColor="#FFD656"
+                    android:textSize="@dimen/_16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font_700"
+                    android:textColor="#304574"
+                    android:textSize="@dimen/_16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font_400"
+                    android:text="@string/ads_what_can_you_do_content"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font_700"
+                    android:textColor="#304574"
+                    android:textSize="@dimen/_16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font_700"
+                    android:text="@string/what_ads_type_do_we_use"
+                    android:textColor="#FFD656"
+                    android:textSize="@dimen/_16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font_700"
+                    android:textColor="#304574"
+                    android:textSize="@dimen/_16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font_400"
+                    android:text="@string/type_ads_title"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font_400"
+                    android:textColor="#3B3B3B"
+                    android:textSize="@dimen/_16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font_400"
+                    android:textStyle="italic"
+                    android:text="@string/we_are_always_trying_to_balance_the_user_experience_and_advertisment"
+                    android:textColor="#3B3B3B"
+                    android:textSize="@dimen/_16sp" />
+            </LinearLayout>
+
+        </ScrollView>
+
+    </FrameLayout>
+</layout>

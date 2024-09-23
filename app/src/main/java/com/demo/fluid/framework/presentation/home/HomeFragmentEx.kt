@@ -19,7 +19,13 @@ fun HomeFragment.backEvent() {
     //Show exit dialog
 }
 
-fun HomeFragment.setupViewPager(){
+fun HomeFragment.settingEvent() {
+    binding.ivSetting.setPreventDoubleClick {
+        safeNav(R.id.homeFragment, R.id.action_homeFragment_to_settingFragment)
+    }
+}
+
+fun HomeFragment.setupViewPager() {
     adapter.setMainActivity(requireActivity() as MainActivity)
     adapter.setListener(this)
     binding.vpMain.adapter = adapter
@@ -72,14 +78,14 @@ fun HomeFragment.setupViewPager(){
     })
 }
 
-fun HomeFragment.onNextEvent(){
+fun HomeFragment.onNextEvent() {
     binding.ivNextPage.setPreventDoubleClick {
         binding.vpMain.currentItem += 1
     }
 }
 
 
-fun HomeFragment.onPreviousEvent(){
+fun HomeFragment.onPreviousEvent() {
     binding.ivPreviousPage.setPreventDoubleClick {
         binding.vpMain.currentItem -= 1
     }

@@ -78,6 +78,8 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     implementation(project(":commonRes"))
+    implementation(project(":LibIAP"))
+    implementation(project(":LibAds"))
 
     // Crash recovery
     implementation(libs.recovery)
@@ -152,5 +154,6 @@ dependencies {
     implementation ("com.otaliastudios:cameraview:2.7.2")
     implementation ("com.kyleduo.switchbutton:library:2.1.0")
     implementation ("net.yslibrary.keyboardvisibilityevent:keyboardvisibilityevent:3.0.0-RC3")
+    implementation(libs.permissionx)
 
 }

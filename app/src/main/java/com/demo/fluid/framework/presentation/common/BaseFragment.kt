@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
+import androidx.navigation.NavDestination
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
@@ -117,6 +118,115 @@ abstract class BaseFragment<Binding : ViewBinding, VM : ViewModel>(
                     }
                 }
             })
+        }
+    }
+
+    var navObserver : LifecycleEventObserver? = null
+    fun safeNavInter(currentDestination: Int, navDirections: NavDirections) {
+        if (navController.currentDestination?.id == currentDestination) {
+            runCatching {
+                navObserver = object : LifecycleEventObserver {
+                    override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
+                        if (event == Lifecycle.Event.ON_RESUME) {
+                            lifecycle.removeObserver(this)
+                            runCatching {
+                                if (navController.currentDestination?.id == currentDestination){
+                                    navController.navigate(navDirections)
+                                }
+                            }
+                        }
+                    }
+                }
+                lifecycle.addObserver(navObserver!!)
+                navController.addOnDestinationChangedListener(object :
+                    NavController.OnDestinationChangedListener {
+                    override fun onDestinationChanged(
+                        controller: NavController,
+                        destination: NavDestination,
+                        arguments: Bundle?
+                    ) {
+                        if (destination.id != currentDestination){
+                            navController.removeOnDestinationChangedListener(this)
+                            lifecycle.removeObserver(navObserver as LifecycleEventObserver)
+                        }
+                    }
+                })
+                if (navController.currentDestination?.id == currentDestination){
+                    navController.navigate(navDirections)
+                }
+            }
+        }
+    }
+
+    fun safeNavInter(currentDestination: Int, action: Int) {
+        if (navController.currentDestination?.id == currentDestination) {
+            runCatching {
+                navObserver = object : LifecycleEventObserver {
+                    override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
+                        if (event == Lifecycle.Event.ON_RESUME) {
+                            lifecycle.removeObserver(this)
+                            runCatching {
+                                if (navController.currentDestination?.id == currentDestination){
+                                    navController.navigate(action)
+                                }
+                            }
+                        }
+                    }
+                }
+                lifecycle.addObserver(navObserver!!)
+                navController.addOnDestinationChangedListener(object :
+                    NavController.OnDestinationChangedListener {
+                    override fun onDestinationChanged(
+                        controller: NavController,
+                        destination: NavDestination,
+                        arguments: Bundle?
+                    ) {
+                        if (destination.id != currentDestination){
+                            navController.removeOnDestinationChangedListener(this)
+                            lifecycle.removeObserver(navObserver as LifecycleEventObserver)
+                        }
+                    }
+                })
+                if (navController.currentDestination?.id == currentDestination){
+                    navController.navigate(action)
+                }
+            }
+        }
+    }
+
+    fun safeNavInter(currentDestination: Int, action: Int, bundle: Bundle) {
+        if (navController.currentDestination?.id == currentDestination) {
+            runCatching {
+                navObserver = object : LifecycleEventObserver {
+                    override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
+                        if (event == Lifecycle.Event.ON_RESUME) {
+                            lifecycle.removeObserver(this)
+                            runCatching {
+                                if (navController.currentDestination?.id == currentDestination){
+                                    navController.navigate(action , bundle)
+                                }
+                            }
+                        }
+                    }
+                }
+                lifecycle.addObserver(navObserver!!)
+                navController.addOnDestinationChangedListener(object :
+                    NavController.OnDestinationChangedListener {
+                    override fun onDestinationChanged(
+                        controller: NavController,
+                        destination: NavDestination,
+                        arguments: Bundle?
+                    ) {
+                        if (destination.id != currentDestination){
+                            navController.removeOnDestinationChangedListener(this)
+                            lifecycle.removeObserver(navObserver as LifecycleEventObserver)
+                        }
+                    }
+                })
+                if (navController.currentDestination?.id == currentDestination){
+                    navController.navigate(action , bundle)
+                }
+            }
         }
     }
 
