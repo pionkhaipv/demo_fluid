@@ -33,8 +33,7 @@ fun TransparentWallpaperFragment.initView() {
 
     binding.sbWallpaper.isChecked = isWallpaperSet()
 
-    binding.sbWallpaper.setOnClickListener {
-        val isChecked = binding.sbWallpaper.isChecked
+    binding.sbWallpaper.setOnCheckedChangeListener { _, isChecked ->
         if (!isChecked) {
             try {
                 WallpaperManager.getInstance(context).clear()
