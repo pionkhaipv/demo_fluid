@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 
 import com.demo.fluid.R;
+import com.demo.fluid.util.Common;
 import com.magicfluids.MotionEventWrapper;
 import com.magicfluids.NativeInterface;
 
@@ -156,7 +157,7 @@ public final class GLES20RendererLWP implements GLSurfaceView.Renderer {
         GLES20.glEnable(GLES20.GL_BLEND);
         GLES20.glBlendFunc(GLES20.GL_SRC_ALPHA, GLES20.GL_ONE_MINUS_SRC_ALPHA);
         // Tạo texture
-        loadTexture(application, R.drawable.aaaaa); // Thay bằng ảnh PNG của bạn
+        loadTexture(Common.INSTANCE.getFilePathTextView()); // Thay bằng ảnh PNG của bạn
         // Kích hoạt blending
         GLES20.glEnable(GLES20.GL_BLEND);
         GLES20.glBlendFunc(GLES20.GL_SRC_ALPHA, GLES20.GL_ONE_MINUS_SRC_ALPHA);
@@ -219,7 +220,7 @@ public final class GLES20RendererLWP implements GLSurfaceView.Renderer {
         GLES20.glDisableVertexAttribArray(texCoordHandle);
     }
 
-    private void loadTexture(Context context, int resourceId) {
+    private void loadTexture(String filePath) {
         GLES20.glGenTextures(1, textures, 0);
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textures[0]);
 
@@ -230,8 +231,7 @@ public final class GLES20RendererLWP implements GLSurfaceView.Renderer {
 
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-        Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), resourceId, options);
-
+        Bitmap bitmap = BitmapFactory.decodeFile(filePath, options);
         // Chuyển đổi ảnh thành texture
         GLES20.glTexImage2D(GLES20.GL_TEXTURE_2D, 0, GLES20.GL_RGBA, bitmap.getWidth(), bitmap.getHeight(), 0, GLES20.GL_RGBA, GLES20.GL_UNSIGNED_BYTE, null);
         GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, bitmap, 0);

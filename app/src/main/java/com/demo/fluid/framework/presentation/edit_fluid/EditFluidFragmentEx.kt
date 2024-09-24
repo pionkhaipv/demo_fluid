@@ -2,57 +2,91 @@ package com.demo.fluid.framework.presentation.edit_fluid
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.app.Instrumentation
 import android.app.WallpaperManager
 import android.content.ComponentName
 import android.content.Intent
 import android.graphics.Point
-import android.opengl.GLSurfaceView
 import android.os.Build
-import android.os.Bundle
-import android.os.SystemClock
 import android.util.DisplayMetrics
-import android.view.InputDevice
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
 import android.view.animation.AnimationUtils
+import android.widget.TextView
 import androidx.activity.addCallback
-import androidx.core.os.bundleOf
-import androidx.core.view.isInvisible
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentResultListener
 import androidx.navigation.fragment.findNavController
 import com.demo.fluid.R
+import com.demo.fluid.framework.database.entities.TextViewData
+import com.demo.fluid.framework.database.entities.WallpaperName
+import com.demo.fluid.framework.database.entities.WallpaperWithTextView
 import com.demo.fluid.framework.presentation.addTextFluid.AddTextFluidActivity
+import com.demo.fluid.framework.presentation.addTextFluid.getTypeFaceMap
 import com.demo.fluid.framework.presentation.onScreenFluid.OnScreenActivity
+import com.demo.fluid.framework.presentation.previewFluid.PreviewFluidActivity
 import com.demo.fluid.framework.presentation.wallpaper_service.NewWallpaperService
 import com.demo.fluid.util.BundleKey
 import com.demo.fluid.util.Common
+import com.demo.fluid.util.Constant
 import com.demo.fluid.util.displayToast
+import com.demo.fluid.util.getBitmapFromView
 import com.demo.fluid.util.gl.GLES20Renderer
-import com.demo.fluid.util.gl.InputBuffer
 import com.demo.fluid.util.gl.OrientationSensor
 import com.demo.fluid.util.gl.SettingsStorage
-import com.magicfluids.Config
+import com.demo.fluid.util.saveBitmapToFile
 import com.demo.fluid.util.setPreventDoubleClickScaleView
-import com.demo.fluid.util.simulateClick
-import com.demo.fluid.util.simulateSwipe
-import pion.tech.fluid_wallpaper.util.loadImage
+import com.magicfluids.Config
+import pion.tech.fluid_wallpaper.util.parcelable
 import pion.tech.fluid_wallpaper.util.safeDelay
-import java.io.File
-import kotlin.math.abs
-import kotlin.random.Random
 
 fun EditFluidFragment.initView() {
-    if (commonViewModel.currentAddedTextFilePath != null) {
-        binding.ivAddedText.loadImage(File(commonViewModel.currentAddedTextFilePath!!))
+
+    nameWallpaper = arguments?.getString(BundleKey.KEY_FLUID_NAME_EDIT) ?: "AbstractAdventure"
+    wallpaperWithTextView = arguments?.parcelable(BundleKey.KEY_WALLPAPER_WITH_TEXTVIEW)
+
+    if (nameWallpaper == null && wallpaperWithTextView == null) {
+        displayToast(R.string.something_error)
+        findNavController().navigateUp()
     }
 
+    if (wallpaperWithTextView != null) {
+        Constant.textViewList.clear()
+        nameWallpaper = wallpaperWithTextView!!.wallpaperName.nameWallpaper
+        for (item in wallpaperWithTextView!!.listTextViewData) {
+            val textView = TextView(requireContext())
+            textView.text = item.text
+            textView.x = item.positionX
+            textView.y = item.positionY
+            textView.setTextColor(item.color)
+            textView.typeface = ResourcesCompat.getFont(requireContext(), item.typeFaceSource)
+            textView.textSize = item.textSize / 2
+            Constant.textViewList.add(textView)
+            setUpViewForListTextView()
+        }
+    }
     binding.cvMain.post {
         adjustSurfaceViewSizeWithActionBar(activity = requireActivity(), view = binding.cvMain)
+    }
+
+}
+
+fun EditFluidFragment.setUpViewForListTextView() {
+    binding.tvSave.isVisible = Constant.textViewList.isNotEmpty()
+    binding.flContainer.removeAllViews()
+    binding.flContainer.post {
+        for (item in Constant.textViewList) {
+            val textView = TextView(requireContext())
+            textView.text = item.text
+            textView.x = item.x
+            textView.y = item.y
+            textView.setTextColor(item.currentTextColor)
+            textView.typeface = item.typeface
+            textView.textSize = item.textSize/2
+            val parent = textView.parent as? ViewGroup
+            parent?.removeView(textView)
+            binding.flContainer.addView(textView)
+        }
     }
 }
 
@@ -92,6 +126,40 @@ fun adjustSurfaceViewSizeWithActionBar(activity: Activity, view: View) {
     view.layoutParams = layoutParams
 }
 
+fun EditFluidFragment.saveEvent() {
+    binding.tvSave.setPreventDoubleClickScaleView {
+        val listTextViewData = mutableListOf<TextViewData>()
+        for (item in Constant.textViewList) {
+            val tempTextViewData = TextViewData(
+                id = 0,
+                wallpaperId = 0,
+                text = item.text.toString(),
+                color = item.currentTextColor,
+                typeFaceSource = requireContext().getTypeFaceMap().entries.find { it.value == item.typeface }?.key ?: pion.tech.commonres.R.font.font_300,
+                positionX = item.x,
+                positionY = item.y,
+                textSize = item.textSize
+            )
+            listTextViewData.add(tempTextViewData)
+        }
+        val tempWallpaperWithTextView = WallpaperWithTextView(
+            wallpaperName = WallpaperName(
+                id = 0,
+                nameWallpaper = nameWallpaper ?: "AbstractAdventure"
+            ), listTextViewData = listTextViewData
+        )
+        viewModel.createNewChatRoomAndInsertMessage(
+            wallpaperWithTextView = tempWallpaperWithTextView,
+            onSuccess = {
+                displayToast(
+                    getString(
+                        R.string.save_success
+                    )
+                )
+            },
+            onFailure = { displayToast(R.string.something_error) })
+    }
+}
 
 fun EditFluidFragment.onBackEvent() {
     binding.ivBack.setPreventDoubleClickScaleView {
@@ -103,7 +171,7 @@ fun EditFluidFragment.onBackEvent() {
 }
 
 fun EditFluidFragment.backEvent() {
-    findNavController().popBackStack(R.id.listFluidFragment, false)
+    findNavController().navigateUp()
 }
 
 fun EditFluidFragment.setUpSurfaceView() {
@@ -123,34 +191,21 @@ fun EditFluidFragment.setUpSurfaceView() {
     renderer.setInitialScreenSize(300, 200)
     nativeInterface.onCreate(300, 200, false)
     nativeInterface.updateConfig(config)
-//    safeDelay(3000) {
-//        displayToast("Vuot")
-//        simulateSwipe(xStart = 0.0f, yStart = 0.0f, xEnd = 248f, yEnd = 423f)
-//    }
 }
 
 
 @SuppressLint("ClickableViewAccessibility")
 fun EditFluidFragment.startHandAnim() {
     binding.clTutorial.isVisible = true
-    binding.surfaceView.isInvisible = true
     binding.ivHand.post {
         safeDelay(500) {
             val slideUp = AnimationUtils.loadAnimation(requireContext(), R.anim.slide_left)
             binding.ivHand.startAnimation(slideUp)
-//            simulateClick(binding.surfaceView)
-//            safeDelay(3000) {
-//                simulateClick(binding.surfaceView)
-//                binding.ivHand.clearAnimation()
-//                binding.clTutorial.isVisible = false
-//                binding.surfaceView.isInvisible = false
-//            }
         }
     }
 
     binding.clTutorial.setOnTouchListener { _, _ ->
         binding.clTutorial.isVisible = false
-        binding.surfaceView.isInvisible = false
         true
     }
 }
@@ -173,21 +228,10 @@ fun EditFluidFragment.addTextEvent() {
 
 fun EditFluidFragment.setWallpaperEvent() {
     binding.btnSetWallpaper.setPreventDoubleClickScaleView {
-        try {
-            WallpaperManager.getInstance(requireContext()).clear()
-            applySettingsToLwp()
-            Common.INSTANCE.nameWallpaper = nameWallpaper
-            Common.INSTANCE.setNameWallpaper(requireContext(), nameWallpaper)
-            val componentName =
-                ComponentName(requireContext().packageName, NewWallpaperService::class.java.name)
-            val intent = Intent("android.service.wallpaper.CHANGE_LIVE_WALLPAPER")
-            intent.putExtra(
-                "android.service.wallpaper.extra.LIVE_WALLPAPER_COMPONENT",
-                componentName
-            )
-            startActivity(intent)
-        } catch (unused: Exception) {
-            displayToast("Device not support")
-        }
+        Constant.smallFrameWidth =binding.flContainer.width
+        Constant.smallFrameHeight =binding.flContainer.height
+        val intent = Intent(requireContext(),PreviewFluidActivity::class.java)
+        intent.putExtra(BundleKey.KEY_FLUID_NAME_PREVIEW,nameWallpaper)
+        startActivity(intent)
     }
 }

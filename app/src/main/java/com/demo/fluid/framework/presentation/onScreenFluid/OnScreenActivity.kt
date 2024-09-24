@@ -2,12 +2,13 @@ package com.demo.fluid.framework.presentation.onScreenFluid
 
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.MotionEvent
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.demo.fluid.databinding.ActivityOnScreenBinding
+import com.demo.fluid.util.BundleKey
 import com.demo.fluid.util.addActionUp
-import com.demo.fluid.util.gl.InputBuffer
 import com.magicfluids.Config
 import com.magicfluids.NativeInterface
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,7 +26,7 @@ class OnScreenActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        nameWallpaper = intent.getStringExtra("nameWallpaper") ?: "AbstractAdventure"
+        nameWallpaper = intent.getStringExtra(BundleKey.KEY_FLUID_NAME_ON_SCREEN) ?: "AbstractAdventure"
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN

@@ -11,9 +11,9 @@ import com.demo.fluid.framework.presentation.model.LanguageItem
 import com.demo.fluid.framework.presentation.model.getThumbnailUrlByLanguageCode
 import pion.tech.fluid_wallpaper.util.loadImage
 
-class LanguageAdapter(
-    val onSelectLanguage: (languageItem: LanguageItem) -> Unit
-) : ListAdapter<LanguageItem, LanguageAdapter.ViewHolder>(LanguageItemDiffUtil()) {
+class LanguageAdapter: ListAdapter<LanguageItem, LanguageAdapter.ViewHolder>(LanguageItemDiffUtil()) {
+
+    var onSelectLanguage: ((LanguageItem) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -39,7 +39,7 @@ class LanguageAdapter(
             }
             binding.txvNameLanguage.text = languageItem.languageName
             binding.root.setOnClickListener {
-                onSelectLanguage.invoke(languageItem)
+                onSelectLanguage?.invoke(languageItem)
             }
             binding.ivLogo.loadImage(getThumbnailUrlByLanguageCode(languageItem.languageCode))
         }

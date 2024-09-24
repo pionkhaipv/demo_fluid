@@ -1,14 +1,17 @@
-package pion.tech.fluid_wallpaper.framework.database
+package com.demo.fluid.framework.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import pion.tech.fluid_wallpaper.framework.database.daointerface.DummyDAO
-import pion.tech.fluid_wallpaper.framework.database.entities.DummyEntity
+import com.demo.fluid.framework.database.daointerface.TextViewDataDAO
+import com.demo.fluid.framework.database.daointerface.WallpaperNameDAO
+import com.demo.fluid.framework.database.entities.TextViewData
+import com.demo.fluid.framework.database.entities.WallpaperName
 
-@Database(entities = [DummyEntity::class], version = 1)
-abstract class AppDatabase : RoomDatabase(){
+@Database(entities = [WallpaperName::class, TextViewData::class], version = 1)
+abstract class AppDatabase : RoomDatabase() {
 
-    abstract fun dummyDAO(): DummyDAO
+    abstract fun textViewDataDAO(): TextViewDataDAO
+    abstract fun wallpaperDAO(): WallpaperNameDAO
 
     companion object {
         const val DATABASE_NAME = "app_db"

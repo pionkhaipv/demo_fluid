@@ -1,15 +1,15 @@
 package com.demo.fluid.framework.presentation.addTextFluid
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.graphics.Color
-import android.util.Log
+import android.graphics.Typeface
 import android.view.Gravity
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.SeekBar
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import com.demo.fluid.R
 import com.demo.fluid.customview.DraggableTouchListener
@@ -17,13 +17,12 @@ import com.demo.fluid.framework.presentation.addTextFluid.adapter.ColorAdapter
 import com.demo.fluid.framework.presentation.addTextFluid.adapter.FontFamilyAdapter
 import com.demo.fluid.framework.presentation.edit_fluid.adjustSurfaceViewSizeWithActionBar
 import com.demo.fluid.util.Constant
-import com.demo.fluid.util.getBitmapFromView
 import com.demo.fluid.util.gl.GLES20Renderer
 import com.demo.fluid.util.gl.OrientationSensor
 import com.demo.fluid.util.gl.SettingsStorage
-import com.demo.fluid.util.saveBitmapToFile
 import com.demo.fluid.util.setPreventDoubleClickScaleView
 import com.magicfluids.Config
+import com.magicfluids.NativeInterface
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent.setEventListener
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener
 import pion.tech.fluid_wallpaper.util.hideKeyboard
@@ -102,7 +101,10 @@ fun AddTextFluidActivity.onApplyEvent() {
         binding.tvApply.isVisible = false
         binding.tvDone.isVisible = true
         binding.tvApply.hideKeyboard()
+        binding.llAddText.isVisible = true
+        binding.llEditText.isVisible = false
 
+        currentEditTextView?.text = binding.edtChangeText.text
         currentEditTextView?.typeface = binding.edtChangeText.typeface
         currentEditTextView?.setTextColor(binding.edtChangeText.textColors)
         currentEditTextView?.textSize = binding.edtChangeText.textSize / 2
@@ -111,30 +113,45 @@ fun AddTextFluidActivity.onApplyEvent() {
 
 fun AddTextFluidActivity.onDoneEvent() {
     binding.tvDone.setPreventDoubleClickScaleView {
-        val bitmap = binding.flContainer.getBitmapFromView()
-        val filePath =
-            saveBitmapToFile(bitmap, System.currentTimeMillis().toString())
-//        commonViewModel.currentAddedTextFilePath = filePath
         backEvent()
 
         Constant.textViewList.clear()
         for (i in 0 until binding.flContainer.childCount) {
             val view = binding.flContainer.getChildAt(i)
             if (view is TextView) {
-                Log.d("sagagwagwgwa", "x la: ${view.x}")
-                Log.d("sagagwagwgwa", "y la: ${view.y}")
                 Constant.textViewList.add(view)
             }
         }
-        //Lay tat ca textview o trong flcontainer
-        Log.d("asgagwagwgagwa", "onDoneEvent: $filePath")
+    }
+}
+
+fun AddTextFluidActivity.onEditTextEvent(){
+    binding.btnEditText.setPreventDoubleClickScaleView {
+        if(currentEditTextView != null){
+            binding.tvApply.isVisible = true
+            binding.tvDone.isVisible = false
+            binding.clEditText.isVisible = true
+            binding.sbFontSize.progress = (currentEditTextView!!.textSize / 2).toInt()
+
+            binding.edtChangeText.setText(currentEditTextView!!.text)
+            binding.edtChangeText.setTextColor(currentEditTextView!!.textColors)
+            binding.edtChangeText.typeface = currentEditTextView!!.typeface
+        }
+    }
+}
+
+fun AddTextFluidActivity.onDeleteTextEvent(){
+    binding.btnDelete.setPreventDoubleClickScaleView {
+        if(currentEditTextView != null){
+            binding.flContainer.removeView(currentEditTextView)
+        }
     }
 }
 
 @SuppressLint("ClickableViewAccessibility")
 fun AddTextFluidActivity.createNextTextView(): TextView {
     val newTextView = TextView(this).apply {
-        text = "Draggable Text"
+        text = "Text"
         textSize = 20f
         setTextColor(Color.WHITE)
         layoutParams = FrameLayout.LayoutParams(
@@ -144,31 +161,17 @@ fun AddTextFluidActivity.createNextTextView(): TextView {
     }
 
     newTextView.setOnTouchListener(
-        DraggableTouchListener(
-            context = this,
-            removeArea = binding.flAddText,
-            container = binding.flContainer,
-            onDoubleClick = {
-                binding.tvApply.isVisible = true
-                binding.tvDone.isVisible = false
-                binding.clEditText.isVisible = true
-                currentEditTextView = newTextView
-                binding.sbFontSize.progress = (currentEditTextView!!.textSize / 2).toInt()
-
-                binding.edtChangeText.setText(currentEditTextView!!.text)
-                binding.edtChangeText.setTextColor(currentEditTextView!!.textColors)
-                binding.edtChangeText.typeface = currentEditTextView!!.typeface
-            },
-            onDragStart = {
-                binding.llDeleteText.isVisible = true
-                binding.llAddText.isInvisible = true
-            },
-            onDragEnd = {
-                binding.llDeleteText.isVisible = false
-                binding.llAddText.isInvisible = false
-            },
-
-            )
+        DraggableTouchListener(onClick = {
+            currentEditTextView = newTextView
+            if (binding.llAddText.isVisible) {
+                binding.llAddText.isVisible = false
+                binding.llEditText.isVisible = true
+            } else {
+                binding.llAddText.isVisible = true
+                binding.llEditText.isVisible = false
+            }
+        }
+        )
     )
 
     return newTextView
@@ -193,11 +196,7 @@ fun AddTextFluidActivity.setUpAdapter() {
         }
     })
 
-    val listFontFamily = listOf(
-        R.font.font_digital_number, pion.tech.commonres.R.font.font_100,
-        pion.tech.commonres.R.font.font_200
-    )
-    fontFamilyAdapter.submitList(listFontFamily)
+    fontFamilyAdapter.submitList(this.getTypeFaceMap().keys.toList())
     binding.rvFontFamily.adapter = fontFamilyAdapter
     fontFamilyAdapter.setListener(object : FontFamilyAdapter.Listener {
         override fun onItemClick(item: Int) {
@@ -208,6 +207,7 @@ fun AddTextFluidActivity.setUpAdapter() {
 }
 
 fun AddTextFluidActivity.initView() {
+    NativeInterface.init()
     setEventListener(
         this,
         this,
@@ -222,9 +222,31 @@ fun AddTextFluidActivity.initView() {
     binding.flContainer.removeAllViews()
     binding.flContainer.post {
         for (item in Constant.textViewList) {
-            val parent = item.parent as? ViewGroup
-            parent?.removeView(item)
-            binding.flContainer.addView(item)
+            val textView = createNextTextView()
+            textView.text = item.text
+            textView.x = item.x
+            textView.y = item.y
+            textView.setTextColor(item.currentTextColor)
+            textView.typeface = item.typeface
+            textView.textSize = item.textSize / 2
+            val parent = textView.parent as? ViewGroup
+            parent?.removeView(textView)
+            binding.flContainer.addView(textView)
         }
     }
+}
+
+fun Context.getTypeFaceMap(): Map<Int, Typeface?> {
+    val typefaceMap = mapOf(
+        R.font.font_digital_number to ResourcesCompat.getFont(this, R.font.font_digital_number),
+        pion.tech.commonres.R.font.font_100 to ResourcesCompat.getFont(
+            this,
+            pion.tech.commonres.R.font.font_100
+        ),
+        pion.tech.commonres.R.font.font_200 to ResourcesCompat.getFont(
+            this,
+            pion.tech.commonres.R.font.font_200
+        )
+    )
+    return typefaceMap
 }

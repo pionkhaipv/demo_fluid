@@ -32,9 +32,12 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".framework.presentation.previewFluid.PreviewFluidActivity"
+            android:exported="false" />
+        <activity
             android:name=".framework.presentation.addTextFluid.AddTextFluidActivity"
             android:exported="false"
-            android:windowSoftInputMode="stateHidden|adjustPan"/>
+            android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name=".framework.presentation.onScreenFluid.OnScreenActivity"
             android:exported="false" />
@@ -87,7 +90,6 @@
                 android:name="android.service.wallpaper"
                 android:resource="@xml/image_wall_paper_main" />
         </service>
-
         <service
             android:name="androidx.appcompat.app.AppLocalesMetadataHolderService"
             android:enabled="false"
@@ -96,6 +98,7 @@
                 android:name="autoStoreLocales"
                 android:value="true" />
         </service>
+
         <property
             android:name="android.adservices.AD_SERVICES_CONFIG"
             android:resource="@xml/gma_ad_services_config"

@@ -121,11 +121,10 @@ public enum ConfigID {
     USE_DETAIL_TEXTURE,
     DETAIL_TEXTURE,
     DETAIL_UV_SCALE;
-    
-    public static ConfigID[] values;
+
+    public static ConfigID[] values = null;
 
     static {
-        values = null;
         values = values();
     }
 }

@@ -1,8 +1,7 @@
 package com.magicfluids;
 
 import android.util.Log;
-import androidx.core.internal.view.SupportMenu;
-import androidx.core.view.ViewCompat;
+
 import java.util.EnumMap;
 import java.util.Map;
 
@@ -21,26 +20,10 @@ public class Config {
     static final int MENU_BUTTON_VISIBLE = 0;
     public boolean ReloadRequired = false;
     public boolean ReloadRequiredPreview = false;
-    boolean[] boolArray = new boolean[ConfigID.values().length];
-    Map<ConfigID, ConfigVal> configMap = new EnumMap(ConfigID.class);
-    float[] floatArray = new float[ConfigID.values().length];
-    int[] intArray = new int[ConfigID.values().length];
-
-    public boolean[] getBoolArray() {
-        return this.boolArray;
-    }
-
-    public float[] getFloatArray() {
-        return this.floatArray;
-    }
-
-    public int[] getIntArray() {
-        return this.intArray;
-    }
-
-    public Map<ConfigID, ConfigVal> getMap() {
-        return this.configMap;
-    }
+    private boolean[] boolArray = new boolean[ConfigID.values().length];
+    private Map<ConfigID, ConfigVal> configMap = new EnumMap(ConfigID.class);
+    private float[] floatArray = new float[ConfigID.values().length];
+    private int[] intArray = new int[ConfigID.values().length];
 
     public static abstract class ConfigVal {
         public boolean IsPresetRelated;
@@ -52,6 +35,7 @@ public class Config {
             BOOL
         }
 
+        /* access modifiers changed from: package-private */
         public abstract void copyValueFrom(ConfigVal configVal);
 
         ConfigVal(boolean z, DataType dataType) {
@@ -66,6 +50,14 @@ public class Config {
         public float Min;
         public float Value;
 
+        FloatVal(float f, float f2, float f3, boolean z) {
+            super(z, DataType.FLOAT);
+            this.Default = f;
+            this.Value = f;
+            this.Min = f2;
+            this.Max = f3;
+        }
+
         public int getPercent() {
             float f = this.Value;
             float f2 = this.Min;
@@ -77,14 +69,7 @@ public class Config {
             this.Value = f + ((((float) i) / 100.0f) * (this.Max - f));
         }
 
-        FloatVal(float f, float f2, float f3, boolean z) {
-            super(z, DataType.FLOAT);
-            this.Default = f;
-            this.Value = f;
-            this.Min = f2;
-            this.Max = f3;
-        }
-
+        /* access modifiers changed from: package-private */
         public void copyValueFrom(ConfigVal configVal) {
             this.Value = ((FloatVal) configVal).Value;
         }
@@ -102,6 +87,7 @@ public class Config {
             this.IsColor = z2;
         }
 
+        /* access modifiers changed from: package-private */
         public void copyValueFrom(ConfigVal configVal) {
             this.Value = ((IntVal) configVal).Value;
         }
@@ -117,6 +103,7 @@ public class Config {
             this.Value = z;
         }
 
+        /* access modifiers changed from: package-private */
         public void copyValueFrom(ConfigVal configVal) {
             this.Value = ((BoolVal) configVal).Value;
         }
@@ -144,6 +131,10 @@ public class Config {
 
     private void addBoolNonPreset(ConfigID configID, boolean z) {
         this.configMap.put(configID, new BoolVal(z, false));
+    }
+
+    public Map<ConfigID, ConfigVal> getMap() {
+        return this.configMap;
     }
 
     public void copyValuesFrom(Config config) {
@@ -219,7 +210,7 @@ public class Config {
         if (intVal != null) {
             intVal.Value = i;
             if (intVal.IsColor) {
-                intVal.Value |= ViewCompat.MEASURED_STATE_MASK;
+                intVal.Value |= -16777216;
             }
         }
     }
@@ -278,7 +269,7 @@ public class Config {
         addInt(ConfigID.COLOR_OPTION, 0);
         addFloat(ConfigID.RANDOM_SATURATION, 0.75f, 0.0f, 1.0f);
         addBool(ConfigID.OVERBRIGHT_COLORS, true);
-        addIntColor(ConfigID.COLOR0, SupportMenu.CATEGORY_MASK);
+        addIntColor(ConfigID.COLOR0, -65536);
         addIntColor(ConfigID.COLOR1, -16711936);
         addIntColor(ConfigID.COLOR2, -16776961);
         addIntColor(ConfigID.COLOR3, -1);
@@ -290,7 +281,7 @@ public class Config {
         addBool(ConfigID.COLOR_ACTIVE3, false);
         addBool(ConfigID.COLOR_ACTIVE4, false);
         addBool(ConfigID.COLOR_ACTIVE5, false);
-        addIntColor(ConfigID.DCOLOR0, SupportMenu.CATEGORY_MASK);
+        addIntColor(ConfigID.DCOLOR0, -65536);
         addIntColor(ConfigID.DCOLOR1, -16711936);
         addIntColor(ConfigID.DCOLOR2, -16711936);
         addBool(ConfigID.DCOLOR_ACTIVE0, true);
@@ -380,6 +371,18 @@ public class Config {
         addBool(ConfigID.USE_DETAIL_TEXTURE, false);
         addInt(ConfigID.DETAIL_TEXTURE, 0);
         addFloat(ConfigID.DETAIL_UV_SCALE, 2.5f, 1.5f, 3.5f);
+    }
+
+    public float[] getFloatArray() {
+        return this.floatArray;
+    }
+
+    public int[] getIntArray() {
+        return this.intArray;
+    }
+
+    public boolean[] getBoolArray() {
+        return this.boolArray;
     }
 
     public void updateNativeArrays() {

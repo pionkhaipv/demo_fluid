@@ -11,9 +11,6 @@
         android:name="com.demo.fluid.framework.presentation.home.HomeFragment"
         android:label="HomeFragment" >
         <action
-            android:id="@+id/action_homeFragment_to_previewFluidFragment"
-            app:destination="@id/previewFluidFragment" />
-        <action
             android:id="@+id/action_homeFragment_to_transparentWallpaperFragment"
             app:destination="@id/transparentWallpaperFragment" />
         <action
@@ -22,6 +19,9 @@
         <action
             android:id="@+id/action_homeFragment_to_settingFragment"
             app:destination="@id/settingFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_personalFragment"
+            app:destination="@id/personalFragment" />
     </fragment>
     <fragment
         android:id="@+id/splashFragment"
@@ -38,11 +38,6 @@
             android:id="@+id/action_splashFragment_to_homeFragment2"
             app:destination="@id/homeFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/previewFluidFragment"
-        tools:layout="@layout/fragment_preview_fluid"
-        android:name="com.demo.fluid.framework.presentation.previewFluid.PreviewFluidFragment"
-        android:label="PreviewFluidFragment" />
     <fragment
         android:id="@+id/transparentWallpaperFragment"
         tools:layout="@layout/fragment_transparent_wallpaper"
@@ -97,4 +92,13 @@
         tools:layout="@layout/fragment_onboarding"
         android:name="com.demo.fluid.framework.presentation.onboarding.OnboardingFragment"
         android:label="OnboardingFragment" />
+    <fragment
+        android:id="@+id/personalFragment"
+        tools:layout="@layout/fragment_personal"
+        android:name="com.demo.fluid.framework.presentation.personal.PersonalFragment"
+        android:label="PersonalFragment" >
+        <action
+            android:id="@+id/action_personalFragment_to_editFluidFragment"
+            app:destination="@id/editFluidFragment" />
+    </fragment>
 </navigation>

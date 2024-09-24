@@ -62,42 +62,7 @@ fun View.getBitmapFromView(): Bitmap {
 }
 
 fun Context.saveBitmapToFile(bitmap: Bitmap, fileName: String): String? {
-    // Get the window manager
-    val windowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
 
-    // Get the display metrics
-    val displayMetrics = DisplayMetrics()
-    windowManager.defaultDisplay.getRealMetrics(displayMetrics)
-    val screenWidth = displayMetrics.widthPixels
-    val screenHeight = displayMetrics.heightPixels
-
-    // Calculate the total height, including any system decorations (e.g., status bar, navigation bar)
-    val totalHeight = displayMetrics.heightPixels
-
-    // Get the action bar height
-    var actionBarHeight: Int
-    try {
-        val actionBarStyle = TypedValue()
-        theme.resolveAttribute(android.R.attr.actionBarSize, actionBarStyle, true)
-        actionBarHeight = TypedValue.complexToDimensionPixelSize(actionBarStyle.data, resources.displayMetrics)
-    } catch (e: Exception) {
-        actionBarHeight = 0 // Default to 0 if action bar height is not available
-    }
-
-    // Create a new bitmap with the total height
-    val resultBitmap = Bitmap.createBitmap(screenWidth, totalHeight, Bitmap.Config.ARGB_8888)
-    val canvas = Canvas(resultBitmap)
-
-    // Draw a transparent background
-    canvas.drawColor(Color.TRANSPARENT)
-
-    // Center the original bitmap on the new bitmap, considering the action bar
-    val left = (screenWidth - bitmap.width) / 2
-    val top = (totalHeight - bitmap.height) / 2
-    val rect = Rect(left, top, left + bitmap.width, top + bitmap.height)
-    canvas.drawBitmap(bitmap, null, rect, null)
-
-    // Save the bitmap to file
     val fileDir = File(filesDir, "text_folder")
     if (!fileDir.exists()) {
         fileDir.mkdir() // Create directory if it does not exist
@@ -106,19 +71,21 @@ fun Context.saveBitmapToFile(bitmap: Bitmap, fileName: String): String? {
     val file = File(fileDir, fileName)
 
     return try {
-        FileOutputStream(file).use { outputStream ->
-            resultBitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
-            file.absolutePath
-        }
-    } catch (e: IOException) {
+        // Mở luồng ghi file
+        val fileOutputStream = FileOutputStream(file)
+        // Nén bitmap vào file dưới định dạng PNG
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream)
+        // Đóng luồng ghi file
+        fileOutputStream.flush()
+        fileOutputStream.close()
+
+        // Trả về đường dẫn của file vừa lưu
+        file.absolutePath
+    } catch (e: Exception) {
         e.printStackTrace()
         null
     }
 }
-
-
-
-
 
 fun View.changeBackgroundColor(newColor: Int) {
     setBackgroundColor(

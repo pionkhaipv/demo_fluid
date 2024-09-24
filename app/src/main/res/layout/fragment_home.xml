@@ -21,6 +21,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
+            android:id="@+id/iv_personal"
             android:layout_width="@dimen/_32dp"
             android:layout_height="@dimen/_32dp"
             android:src="@drawable/ic_user_home" />

@@ -1,4 +1,4 @@
-package pion.tech.fluid_wallpaper.framework.di
+package com.demo.fluid.framework.di
 
 import android.content.Context
 import androidx.room.Room
@@ -8,8 +8,9 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import pion.tech.fluid_wallpaper.framework.database.AppDatabase
-import pion.tech.fluid_wallpaper.framework.database.daointerface.DummyDAO
+import com.demo.fluid.framework.database.AppDatabase
+import com.demo.fluid.framework.database.daointerface.TextViewDataDAO
+import com.demo.fluid.framework.database.daointerface.WallpaperNameDAO
 
 
 @InstallIn(SingletonComponent::class)
@@ -38,8 +39,13 @@ object RoomModule {
     }
 
     @Provides
-    fun provideDummyDao(db: AppDatabase): DummyDAO {
-        return db.dummyDAO()
+    fun provideTextViewDataDao(db: AppDatabase): TextViewDataDAO {
+        return db.textViewDataDAO()
+    }
+
+    @Provides
+    fun provideWallpaperDao(db: AppDatabase): WallpaperNameDAO {
+        return db.wallpaperDAO()
     }
 
 }

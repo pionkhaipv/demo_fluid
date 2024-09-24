@@ -7,6 +7,7 @@ public class Common {
     public static final Common INSTANCE = new Common();
     private static int countSaveSuccess = 0;
     private static String nameWallpaper = "";
+    private static String filePathTextView = "";
 
     private Common() {
     }
@@ -23,8 +24,16 @@ public class Common {
         return nameWallpaper;
     }
 
+    public String getFilePathTextView() {
+        return filePathTextView;
+    }
+
     public void setNameWallpaper(String str) {
         nameWallpaper = str;
+    }
+
+    public void setFilePathTextView(String str) {
+        filePathTextView = str;
     }
 
     public String getNameWallpaper(Context context) {

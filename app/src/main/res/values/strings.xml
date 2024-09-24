@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Magic Fluid 4K Live Wallpaper</string>
+    <string name="app_name" translatable="false">Fluid Wallpaper</string>
 
     <string name="applovin_sdk_key">applovin_sdk_key</string>
 
@@ -270,5 +270,9 @@
     <string name="the_transparent_wallpaper_feature_is_not_working">The transparent wallpaper feature is not working</string>
     <string name="the_fluid_wallpaper_feature_is_also_not_working">The fluid wallpaper feature is also not working</string>
     <string name="to_use_transparent_wallpaper_feature">To use transparent wallpaper feature</string>
+    <string name="personal">Personal</string>
+    <string name="save">Save</string>
+    <string name="save_success">Save success</string>
+    <string name="edit_text">Edit text</string>
 
 </resources>

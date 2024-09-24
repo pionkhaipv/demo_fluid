@@ -9,10 +9,12 @@ import com.demo.fluid.util.gl.SettingsStorage
 import com.demo.fluid.util.setPreventDoubleClickScaleView
 import com.demo.fluid.util.simulateSwipe
 import com.magicfluids.Config
+import com.magicfluids.NativeInterface
 import kotlin.math.abs
 import kotlin.random.Random
 
 fun OnScreenActivity.initView() {
+    NativeInterface.init()
     window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
     setUpSurfaceView()
 }

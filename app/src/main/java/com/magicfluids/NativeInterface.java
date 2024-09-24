@@ -4,15 +4,14 @@ import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.opengl.GLUtils;
-import android.util.Log;
 
 import java.io.IOException;
 import java.io.InputStream;
 
 public class NativeInterface {
-    public static boolean loadingFailed;
+    public static boolean loadingFailed = false;
     public static final Object nativeLock = new Object();
-    private static int nextID;
+    private static int nextID = 0;
     public static Object nextIdLock = new Object();
     private static byte[] tmpBuf = new byte[2097152];
     private int ID;
@@ -46,9 +45,22 @@ public class NativeInterface {
 
     private native void windowChangedImpl(int i, int i2, int i3);
 
-    private void endPause(boolean z) {
-        if (!z) {
-            this.mPaused = false;
+    public static void init() {
+        try {
+            System.loadLibrary("nativelib");
+        } catch (UnsatisfiedLinkError ignored) {
+        }
+    }
+
+    public int getID() {
+        return this.ID;
+    }
+
+    public NativeInterface() {
+        synchronized (nextIdLock) {
+            int i = nextID;
+            nextID = i + 1;
+            this.ID = i;
         }
     }
 
@@ -60,35 +72,9 @@ public class NativeInterface {
         return z;
     }
 
-    public int getID() {
-        return this.ID;
-    }
-
-    public void onPauseAnim() {
-        this.mDrawOnly = true;
-    }
-
-    public void onResumeAnim() {
-        this.mDrawOnly = false;
-    }
-
-    public void setAssetManager(AssetManager assetManager) {
-        this.mAssetMgr = assetManager;
-    }
-
-    public static void init() {
-        try {
-                System.loadLibrary("nativelib");
-        } catch (UnsatisfiedLinkError unused) {
-            Log.e("TAG", "init: ");
-        }
-    }
-
-    public NativeInterface() {
-        synchronized (nextIdLock) {
-            int i = nextID;
-            nextID = i + 1;
-            this.ID = i;
+    private void endPause(boolean z) {
+        if (!z) {
+            this.mPaused = false;
         }
     }
 
@@ -115,7 +101,6 @@ public class NativeInterface {
             }
         }
     }
-
 
     public void onCreate(int i, int i2, boolean z) {
         if (!loadingFailed) {
@@ -252,6 +237,18 @@ public class NativeInterface {
         }
     }
 
+    public void onPauseAnim() {
+        this.mDrawOnly = true;
+    }
+
+    public void onResumeAnim() {
+        this.mDrawOnly = false;
+    }
+
+    public void setAssetManager(AssetManager assetManager) {
+        this.mAssetMgr = assetManager;
+    }
+
     public ByteArrayWithSize loadFileContentsFromAssets(String str) {
         ByteArrayWithSize byteArrayWithSize = new ByteArrayWithSize((byte[]) null, 0);
         try {
@@ -268,7 +265,8 @@ public class NativeInterface {
     public boolean loadTexture2DFromAssets(String str) {
         String str2 = str;
         try {
-            InputStream open = this.mAssetMgr.open("textures/" + str2);
+            AssetManager assetManager = this.mAssetMgr;
+            InputStream open = assetManager.open("textures/" + str2);
             try {
                 if (str2.contains("detail/")) {
                     Bitmap decodeStream = BitmapFactory.decodeStream(open);
@@ -288,19 +286,18 @@ public class NativeInterface {
                     decodeStream.recycle();
                     bitmap.recycle();
                     open.close();
-                    return true;
+                } else {
+                    Bitmap decodeStream2 = BitmapFactory.decodeStream(open);
+                    GLUtils.texImage2D(3553, 0, decodeStream2, 0);
+                    decodeStream2.recycle();
+                    open.close();
                 }
-                Bitmap decodeStream2 = BitmapFactory.decodeStream(open);
-                GLUtils.texImage2D(3553, 0, decodeStream2, 0);
-                decodeStream2.recycle();
-                open.close();
-                return true;
             } catch (IOException unused) {
             }
+            return true;
         } catch (IOException e) {
             e.printStackTrace();
             return false;
         }
-        return false;
     }
 }

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#141414">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,7 +21,10 @@
             android:layout_height="@dimen/_32dp"
             android:layout_marginStart="@dimen/_13dp"
             android:paddingVertical="@dimen/_9dp"
-            android:src="@drawable/ic_back" />
+            android:src="@drawable/ic_back"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -30,8 +33,28 @@
             android:fontFamily="@font/font_500"
             android:text="@string/edit_wallpaper"
             android:textColor="@color/white"
-            android:textSize="@dimen/_18sp" />
-    </LinearLayout>
+            android:textSize="@dimen/_18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_back"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_16dp"
+            android:background="@drawable/bg_radius_10"
+            android:backgroundTint="#0194FF"
+            android:fontFamily="@font/font_700"
+            android:paddingHorizontal="@dimen/_13dp"
+            android:paddingVertical="@dimen/_6dp"
+            android:text="@string/save"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
         android:id="@+id/ll_bottom_bar"
@@ -138,11 +161,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
-            <ImageView
-                android:id="@+id/iv_added_text"
+            <FrameLayout
+                android:id="@+id/fl_container"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop" />
+                android:layout_height="match_parent" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_tutorial"
@@ -178,15 +200,6 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.tistory.zladnrms.roundablelayout.RoundableLayout>
-
-    <FrameLayout
-        android:id="@+id/fl_add_text"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="@id/ll_bottom_bar"
-        app:layout_constraintEnd_toEndOf="@id/cv_main"
-        app:layout_constraintStart_toStartOf="@id/cv_main"
-        app:layout_constraintTop_toTopOf="@id/cv_main" />
 
     <FrameLayout
         android:id="@+id/layoutAds"

@@ -20,13 +20,7 @@ class LanguageFragment : BaseFragment<FragmentLanguageBinding, LanguageViewModel
     var isClickAds = false
     var isShowReloadInter = false
 
-    val adapter = LanguageAdapter {
-        onSelectLanguage(it)
-        binding.btnOk.show()
-        if (AdsConstant.listConfigAds["language1.1"]?.isOn == true) {
-            showReloadNativeAds()
-        }
-    }
+    val adapter = LanguageAdapter()
 
     override fun init(view: View) {
         backEvent()

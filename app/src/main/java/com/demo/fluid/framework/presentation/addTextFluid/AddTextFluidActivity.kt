@@ -17,7 +17,7 @@ import com.magicfluids.NativeInterface
 
 class AddTextFluidActivity : AppCompatActivity() {
 
-    lateinit var binding:ActivityAddTextFluidBinding
+    lateinit var binding: ActivityAddTextFluidBinding
 
     var config: Config? = null
     var nameWallpaper: String = "AbstractAdventure"
@@ -33,7 +33,8 @@ class AddTextFluidActivity : AppCompatActivity() {
         binding = ActivityAddTextFluidBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        nameWallpaper = intent.getStringExtra(BundleKey.KEY_FLUID_NAME_ADD_TEXT) ?: "AbstractAdventure"
+        nameWallpaper =
+            intent.getStringExtra(BundleKey.KEY_FLUID_NAME_ADD_TEXT) ?: "AbstractAdventure"
         initView()
         setUpSurfaceView()
         onBackEvent()
@@ -42,6 +43,8 @@ class AddTextFluidActivity : AppCompatActivity() {
         onApplyEvent()
         onDoneEvent()
         setUpAdapter()
+        onEditTextEvent()
+        onDeleteTextEvent()
     }
 
     override fun onResume() {

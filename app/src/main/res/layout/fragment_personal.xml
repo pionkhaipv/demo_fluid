@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_11dp"
             android:fontFamily="@font/font_500"
-            android:text="@string/fluid_wallpaper"
+            android:text="@string/personal"
             android:textColor="@color/white"
             android:textSize="@dimen/_18sp" />
     </LinearLayout>

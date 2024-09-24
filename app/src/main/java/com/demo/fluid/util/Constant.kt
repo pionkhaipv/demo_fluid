@@ -19,10 +19,13 @@ object Constant {
     var lastTimeShowAdsInter = 0L
     var isSkipLanguageAfterSplash = false
 
-    enum class RemoteConfigState { NONE , LOADING , DONE }
+    enum class RemoteConfigState { NONE, LOADING, DONE }
+
     val remoteConfigState = MutableLiveData(RemoteConfigState.NONE)
 
 
     val textViewList = mutableListOf<TextView>()
+    var smallFrameWidth: Int = 0
+    var smallFrameHeight: Int = 0
 
 }

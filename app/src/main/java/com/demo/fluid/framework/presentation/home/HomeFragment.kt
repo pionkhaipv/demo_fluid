@@ -21,7 +21,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
         onPreviousEvent()
         onBackEvent()
         settingEvent()
-
+        personalEvent()
     }
 
     override fun subscribeObserver(view: View) {

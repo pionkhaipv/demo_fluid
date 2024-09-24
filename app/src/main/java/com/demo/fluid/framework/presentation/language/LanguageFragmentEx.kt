@@ -17,6 +17,7 @@ import pion.datlt.libads.utils.adsuntils.safePreloadAds
 import pion.datlt.libads.utils.adsuntils.show3NativeUsePriority
 import pion.datlt.libads.utils.adsuntils.showLoadedBannerAdaptive
 import com.demo.fluid.util.Constant
+import com.demo.fluid.util.show
 import com.demo.fluid.util.showDialogChangingLanguage
 import pion.tech.fluid_wallpaper.util.PrefUtil
 import java.util.Locale
@@ -50,6 +51,13 @@ fun LanguageFragment.getCurrentLanguage() {
 }
 
 fun LanguageFragment.setUpRecycleViewLanguage() {
+    adapter.onSelectLanguage = {
+        onSelectLanguage(it)
+        binding.btnOk.show()
+        if (AdsConstant.listConfigAds["language1.1"]?.isOn == true) {
+            showReloadNativeAds()
+        }
+    }
     binding.rcvLanguage.layoutManager =
         GridLayoutManager(requireContext(), 3)
     binding.rcvLanguage.addItemDecoration(

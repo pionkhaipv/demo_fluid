@@ -25,6 +25,12 @@ fun HomeFragment.settingEvent() {
     }
 }
 
+fun HomeFragment.personalEvent() {
+    binding.ivPersonal.setPreventDoubleClick {
+        safeNav(R.id.homeFragment, R.id.action_homeFragment_to_personalFragment)
+    }
+}
+
 fun HomeFragment.setupViewPager() {
     adapter.setMainActivity(requireActivity() as MainActivity)
     adapter.setListener(this)
